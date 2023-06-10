@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
@@ -11,8 +11,8 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { getTokens } from "./tokens";
-import SERVER_URLs from "./constants/serverUrls";
+import { getTokens } from "./common/auth/tokens";
+import SERVER_URLs from "./common/constants/serverUrls";
 
 const httpLink = createHttpLink({
   uri: `${SERVER_URLs.GRAPH_QL}`,
