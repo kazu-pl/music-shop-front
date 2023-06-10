@@ -1,3 +1,86 @@
+# How to generate TypeScript types for queries and mutations:
+
+`1` - install dependencies: `yarn add -D @graphql-codegen/cli @graphql-codegen/client-preset`
+
+`2` - create script that will generate the types:
+
+```json
+{
+  "scripts": {
+    "codegen": "graphql-codegen", // if you want to pass config file make the script value: "graphql-codegen --config codegen.ts"
+    "codegen:watch": "graphql-codegen -w"
+  }
+}
+```
+
+`3` - create file `codegen.ts` in root folder that will be run by scripts from section `2`:
+
+```ts
+// <root>/codegen.ts
+
+import { CodegenConfig } from "@graphql-codegen/cli";
+
+const dotenv = require("dotenv");
+dotenv.config();
+
+const config: CodegenConfig = {
+  schema: `${process.env.REACT_APP_GRAPHQL_SERVER_URL}/graphql`,
+  documents: ["src/**/*.tsx"],
+  generates: {
+    "./src/__generated__/": {
+      preset: "client",
+      plugins: [],
+      presetConfig: {
+        gqlTagName: "gql",
+      },
+    },
+  },
+  ignoreNoDocuments: true,
+};
+
+export default config;
+```
+
+after that you use `yarn codegen` script to generate code and client
+
+`4` - write query/mutation with generated function:
+
+you have to visit the graphql studio of your server and write query there, then copy and paste the query into the function that was generated with `yarn codegen` script:
+
+```ts
+import { gql } from "./__generated__/gql";
+
+const LOGIN = gql(/* GraphQL */ `
+  mutation Login($loginCredentials: LoginCredentialsInput!) {
+    login(loginCredentials: $loginCredentials) {
+      accessToken
+      refreshToken
+    }
+  }
+`);
+```
+
+and when you copy and paste the query/mutatiton, then you have to use `yarn codegen` script to generate types for the query/mutation so when you pass that `LOGIN` const into your `useQuery` or `useLazyQuery` hook it will be typed:
+
+```ts
+const SomeComponent = () => {
+  //
+  const [login, { data, loading, error }] = useMutation(LOGIN, {
+    variables: {
+      // default variables
+      loginCredentials: {
+        email,
+        password,
+      },
+    },
+    onCompleted(data) {
+      const { __typename, ...tokens } = data.login;
+      saveTokens(tokens);
+    },
+  });
+};
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

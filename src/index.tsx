@@ -1,15 +1,59 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { getTokens } from "./tokens";
+import SERVER_URLs from "./constants/serverUrls";
+
+const httpLink = createHttpLink({
+  uri: `${SERVER_URLs.GRAPH_QL}`,
+});
+
+const authLink = setContext((operation, { headers, ...rest }) => {
+  console.log({ operation, rest });
+  // get the authentication token from local storage if it exists
+
+  const token = getTokens()?.accessToken;
+
+  // return the headers to the context so httpLink can read them
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
+const client = new ApolloClient({
+  connectToDevTools: true,
+  defaultOptions: {
+    mutate: {
+      errorPolicy: "all", // set globally errorPolicy, znalezione tutaj: https://stackoverflow.com/a/48419218
+    },
+  },
+  // uri: SERVER_URLs.GRAPH_QL, // use this if you don't to use auth, if using auth then no need to use this as authLink has uri already
+  cache: new InMemoryCache(),
+  link: authLink.concat(httpLink), // if using link with authLink then you don't need to use above uri
+});
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>
 );
 
