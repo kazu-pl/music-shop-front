@@ -8,29 +8,8 @@ import "./ShopView.css";
 import { Button } from "@mui/material";
 
 import { useSnackbar } from "notistack";
-const LOGIN = gql(/* GraphQL */ `
-  mutation Login($loginCredentials: LoginCredentialsInput!) {
-    login(loginCredentials: $loginCredentials) {
-      accessToken
-      refreshToken
-    }
-  }
-`);
-
-const GETUSERDATA = gql(/* GraphQL */ `
-  query getUserData {
-    getUserData {
-      name
-      surname
-      city
-      email
-      phone
-      postalCode
-      street
-      streetNumber
-    }
-  }
-`);
+import ShopLayout from "layouts/ShopLayout/ShopLayout";
+import HelmetDecorator from "components/HelmetDecorator/HelmetDecorator";
 
 const GET_GUITARS_QUERY = gql(/* GraphQL */ `
   query GetGuitars(
@@ -53,68 +32,12 @@ const GET_GUITARS_QUERY = gql(/* GraphQL */ `
 `);
 
 const ShopView = () => {
-  // const { loading:booksLoading, error:booksError, data:booksData } = useQuery(GET_BOOKS);
-  const { enqueueSnackbar } = useSnackbar();
-
-  const [login, { data, loading, error }] = useMutation(LOGIN, {
-    variables: {
-      // default variables
-      loginCredentials: {
-        email: "test@test.test",
-        password: "qwerty123",
-      },
-    },
-    onCompleted(data) {
-      const { __typename, ...tokens } = data.login;
-      console.log({ onCompleted_data: data });
-      saveTokens(tokens);
-    },
-    onError(error) {
-      console.log({ onError_error: error });
-      console.log({ onError_cause: error.cause });
-      console.log({ onError_clientErrors: error.clientErrors });
-      console.log({ onError_extraInfo: error.extraInfo });
-
-      console.log({ onError_graphQLErrors: error.graphQLErrors });
-
-      console.log({ onError_message: error.message });
-      console.log({ onError_name: error.name });
-      console.log({ onError_networkError: error.networkError });
-      console.log({ onError_protocolErrors: error.protocolErrors });
-      console.log({ onError_stack: error.stack });
-      enqueueSnackbar("Coś posżło nie tak", { variant: "error" });
-    },
-  });
-
-  const [
-    fetchUserData,
-    {
-      data: protectedData,
-      loading: protectedLoading,
-      error: protectedError,
-      refetch,
-    },
-  ] = useLazyQuery(GETUSERDATA, {
-    // variables: {
-    //   data: {
-    //     age: 5,
-    //   },
-    // },
-    // errorPolicy: "all", // można też ustawić globalnie errorPolicy, zobacz index.tsx, znalezione:https://stackoverflow.com/a/48419218
-    // "none" wyrzuci błąd na ekran co jest problematyczne,
-    // "ignore" zignoruje bląd i nie pokaze jego message tak jakby nikt nie obsłużył,
-    // "all" sprawi że normalnie wyświetli się error message tak jak powinno być
-    fetchPolicy: "network-only",
-  });
-  const [
-    fetchGuitars,
-    {
-      data: guitarsData,
-      loading: guitarsLoading,
-      error: guitarsError,
-      refetch: guitarsRefetch,
-    },
-  ] = useLazyQuery(GET_GUITARS_QUERY, {
+  const {
+    data: guitarsData,
+    loading: guitarsLoading,
+    error: guitarError,
+    refetch: guitarsRefetch,
+  } = useQuery(GET_GUITARS_QUERY, {
     variables: {
       limit: 5,
       offset: 0,
@@ -128,49 +51,18 @@ const ShopView = () => {
   });
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <button
-          onClick={() =>
-            login({
-              variables: {
-                loginCredentials: {
-                  email: "ktosfajny777@gmail.com",
-                  password: "qwerty123",
-                },
-              },
-            })
-          }
-        >
-          login
-        </button>
-
-        {protectedLoading && "loading ..."}
-        {protectedError && protectedError.message}
-        {protectedData && (
-          <pre>{JSON.stringify(protectedData.getUserData, undefined, 2)}</pre>
-        )}
-
-        {loading && "loading ..."}
-        {error && error.message}
-        {/* {data && <pre>{JSON.stringify(data.login, undefined, 2)}</pre>} */}
-
-        {/* {booksLoading && "loading..."}
-    {booksError && <p>{booksError.message}</p>}
-    {booksData && <pre>{JSON.stringify(booksData, undefined, 2)}</pre>} */}
-
-        <button onClick={() => fetchUserData()}>
-          make some protected request
-        </button>
-
-        <Button onClick={() => fetchGuitars()}>fetch guitars</Button>
-
-        {guitarsData &&
-          guitarsData.getGuitars.data.map((guitar) => (
-            <p key={guitar._id}>guitar id: {guitar._id}</p>
-          ))}
-      </header>
-    </div>
+    <ShopLayout title="Sklep">
+      <HelmetDecorator title="Sklep" />
+      {guitarsLoading
+        ? "loading..."
+        : guitarError
+        ? "error"
+        : guitarsData
+        ? guitarsData.getGuitars.data.map((guitar) => (
+            <p key={guitar._id}>{guitar._id}</p>
+          ))
+        : ""}
+    </ShopLayout>
   );
 };
 

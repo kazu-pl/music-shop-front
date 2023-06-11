@@ -119,8 +119,6 @@ const RegisterView = () => {
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          {/* below `isSubmitting` will be always true and will never get false because `handleSubmit` is not async (does not return promise to be solved/rejected) */}
-          {/* {({ isSubmitting }) => ( */}
           <Form>
             <Grid container spacing={2}>
               <Grid item xs={12} lg={6}>
@@ -233,7 +231,6 @@ const RegisterView = () => {
               </Button>
             </Box>
           </Form>
-          {/* )} */}
         </Formik>
       </CoreViewsLayout>
     </>

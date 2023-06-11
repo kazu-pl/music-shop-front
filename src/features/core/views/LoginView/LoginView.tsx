@@ -1,14 +1,14 @@
 import { useMutation } from "@apollo/client";
 import { Box, Typography } from "@mui/material";
 import { gql } from "__generated__";
-import { getTokens, isTokenExpired, saveTokens } from "common/auth/tokens";
+import { saveTokens } from "common/auth/tokens";
 import { PATHS_CORE } from "common/constants/paths";
 import yup from "common/yup";
 import HelmetDecorator from "components/HelmetDecorator";
 import TextFieldFormik from "components/formik/TextFieldFormik";
 import { Formik, Form } from "formik";
 import CoreViewsLayout from "layouts/CoreViewLayout";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import Button from "components/Button";
 
@@ -44,7 +44,7 @@ const LoginView = () => {
     onCompleted(data) {
       const { __typename, ...tokens } = data.login;
       saveTokens(tokens);
-      navigate(PATHS_CORE.ACCOUNT);
+      navigate(PATHS_CORE.SHOP);
     },
     onError(error) {
       enqueueSnackbar(error.message, { variant: "error" });
@@ -54,15 +54,6 @@ const LoginView = () => {
   const handleSubmit = (values: LoginFormValues) => {
     login({ variables: { loginCredentials: values } });
   };
-
-  const tokens = getTokens();
-  if (
-    tokens &&
-    !isTokenExpired(tokens.accessToken) &&
-    !isTokenExpired(tokens.refreshToken)
-  ) {
-    return <Navigate to={PATHS_CORE.SHOP} replace />;
-  }
 
   return (
     <>

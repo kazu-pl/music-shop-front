@@ -19,7 +19,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((operation, { headers, ...rest }) => {
-  console.log({ operation, rest });
+  console.log({ authLink_operation: operation, authLink_rest: rest });
   // get the authentication token from local storage if it exists
 
   const token = getTokens()?.accessToken;
@@ -34,15 +34,20 @@ const authLink = setContext((operation, { headers, ...rest }) => {
   };
 });
 
+export const cache = new InMemoryCache();
+
 const client = new ApolloClient({
   connectToDevTools: true,
   defaultOptions: {
-    // mutate: {
-    //   errorPolicy: "all", // set globally errorPolicy, znalezione tutaj: https://stackoverflow.com/a/48419218
-    // },
+    mutate: {
+      errorPolicy: "all", // set globally errorPolicy, znalezione tutaj: https://stackoverflow.com/a/48419218
+    },
+    query: {
+      errorPolicy: "all",
+    },
   },
   // uri: SERVER_URLs.GRAPH_QL, // use this if you don't to use auth, if using auth then no need to use this as authLink has uri already
-  cache: new InMemoryCache(),
+  cache,
   link: authLink.concat(httpLink), // if using link with authLink then you don't need to use above uri
 });
 
