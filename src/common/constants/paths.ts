@@ -9,6 +9,7 @@ export const PATHS_CORE = {
 };
 
 export const PATHS_ADMIN = {
-  FILTERS_LIST: "/admin/filters",
+  FILTERS_LIST: "/admin/filters/list",
+  ADD_FILTER: "/admin/filters/add",
   SINGLE_FILTER: (filterId: string) => `/admin/filter/${filterId}`,
 };
