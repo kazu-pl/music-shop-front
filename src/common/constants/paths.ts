@@ -7,3 +7,8 @@ export const PATHS_CORE = {
   CHECKOUT: "/checkout",
   LOGOUT: "/logout",
 };
+
+export const PATHS_ADMIN = {
+  FILTERS_LIST: "/admin/filters",
+  SINGLE_FILTER: (filterId: string) => `/admin/filter/${filterId}`,
+};

@@ -1,4 +1,6 @@
+import { ADMIN_ACCOUNT_ID } from "common/constants/env";
 import jwtDecode, { JwtPayload } from "jwt-decode";
+import { DecodedUser } from "types/jwt.types";
 
 const LOCALSTORAGE_AUTH_TOKENS = "tokens-graphql";
 
@@ -35,4 +37,23 @@ export const tokenExpiresInSeconds = (token?: string) => {
 
   const decodedToken = jwtDecode<JwtPayload>(token);
   return decodedToken.exp ? decodedToken.exp - Date.now() / 1000 || 0 : 0;
+};
+
+export const getUserIdFromToken = () => {
+  const tokens = getTokens();
+  if (!tokens) {
+    return null;
+  }
+  const decodedToken = jwtDecode<DecodedUser>(tokens.accessToken);
+  return decodedToken._id;
+};
+
+export const isUserLogged = () => {
+  const tokens = getTokens();
+
+  return tokens?.accessToken && !isTokenExpired(tokens.accessToken);
+};
+
+export const isUserAdmin = () => {
+  return isUserLogged() && getUserIdFromToken() === ADMIN_ACCOUNT_ID;
 };

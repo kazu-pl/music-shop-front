@@ -3,26 +3,26 @@ import AppBar from "components/AppBar";
 import Box from "@mui/material/Box";
 import Badge from "@mui/material/Badge";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-import { PATHS_CORE } from "common/constants/paths";
+import { PATHS_ADMIN, PATHS_CORE } from "common/constants/paths";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import ColoredIconWrapper from "components/ColoredIconWrapper/ColoredIconWrapper";
 import { Link } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { getTokens, isTokenExpired } from "common/auth/tokens";
+import {
+  getTokens,
+  isTokenExpired,
+  isUserAdmin,
+  isUserLogged,
+} from "common/auth/tokens";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useLazyQuery } from "@apollo/client";
 import { useLayoutEffect } from "react";
 import { gql } from "__generated__";
-
-const isUserLogged = () => {
-  const tokens = getTokens();
-
-  return tokens?.accessToken && !isTokenExpired(tokens.accessToken);
-};
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
 export const GET_USER_DATA_FOR_SHOPLAYOUT = gql(/* GraphQL */ `
   query GetUserDataForShopLayout {
@@ -105,24 +105,48 @@ const ShopLayout = ({ children, title }: ShopLayoutProps) => {
         }
         userDropdown={
           isUserLogged()
-            ? [
-                {
-                  icon: <StorefrontIcon />,
-                  label: "Sklep",
-                  to: PATHS_CORE.SHOP,
-                },
-                {
-                  icon: <AccountBoxIcon />,
-                  label: "Konto",
-                  to: PATHS_CORE.ACCOUNT,
-                },
-                {
-                  icon: <LogoutIcon />,
-                  label: "Wyloguj",
-                  isErrorColor: true,
-                  to: PATHS_CORE.LOGOUT,
-                },
-              ]
+            ? isUserAdmin()
+              ? [
+                  {
+                    icon: <StorefrontIcon />,
+                    label: "Sklep",
+                    to: PATHS_CORE.SHOP,
+                  },
+                  {
+                    icon: <AccountBoxIcon />,
+                    label: "Konto",
+                    to: PATHS_CORE.ACCOUNT,
+                  },
+                  {
+                    icon: <DashboardIcon />,
+                    label: "panel admina",
+                    to: PATHS_ADMIN.FILTERS_LIST,
+                  },
+                  {
+                    icon: <LogoutIcon />,
+                    label: "Wyloguj",
+                    isErrorColor: true,
+                    to: PATHS_CORE.LOGOUT,
+                  },
+                ]
+              : [
+                  {
+                    icon: <StorefrontIcon />,
+                    label: "Sklep",
+                    to: PATHS_CORE.SHOP,
+                  },
+                  {
+                    icon: <AccountBoxIcon />,
+                    label: "Konto",
+                    to: PATHS_CORE.ACCOUNT,
+                  },
+                  {
+                    icon: <LogoutIcon />,
+                    label: "Wyloguj",
+                    isErrorColor: true,
+                    to: PATHS_CORE.LOGOUT,
+                  },
+                ]
             : [
                 {
                   icon: <StorefrontIcon />,
