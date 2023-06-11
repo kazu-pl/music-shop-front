@@ -7,6 +7,7 @@ import "./index.css";
 import "./ShopView.css";
 import { Button } from "@mui/material";
 
+import { useSnackbar } from "notistack";
 const LOGIN = gql(/* GraphQL */ `
   mutation Login($loginCredentials: LoginCredentialsInput!) {
     login(loginCredentials: $loginCredentials) {
@@ -53,6 +54,7 @@ const GET_GUITARS_QUERY = gql(/* GraphQL */ `
 
 const ShopView = () => {
   // const { loading:booksLoading, error:booksError, data:booksData } = useQuery(GET_BOOKS);
+  const { enqueueSnackbar } = useSnackbar();
 
   const [login, { data, loading, error }] = useMutation(LOGIN, {
     variables: {
@@ -64,7 +66,23 @@ const ShopView = () => {
     },
     onCompleted(data) {
       const { __typename, ...tokens } = data.login;
+      console.log({ onCompleted_data: data });
       saveTokens(tokens);
+    },
+    onError(error) {
+      console.log({ onError_error: error });
+      console.log({ onError_cause: error.cause });
+      console.log({ onError_clientErrors: error.clientErrors });
+      console.log({ onError_extraInfo: error.extraInfo });
+
+      console.log({ onError_graphQLErrors: error.graphQLErrors });
+
+      console.log({ onError_message: error.message });
+      console.log({ onError_name: error.name });
+      console.log({ onError_networkError: error.networkError });
+      console.log({ onError_protocolErrors: error.protocolErrors });
+      console.log({ onError_stack: error.stack });
+      enqueueSnackbar("Coś posżło nie tak", { variant: "error" });
     },
   });
 

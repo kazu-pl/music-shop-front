@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  mutation Login($loginCredentials: LoginCredentialsInput!) {\n    login(loginCredentials: $loginCredentials) {\n      accessToken\n      refreshToken\n    }\n  }\n": types.LoginDocument,
+    "\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n": types.RegisterDocument,
     "\n  query getUserData {\n    getUserData {\n      name\n      surname\n      city\n      email\n      phone\n      postalCode\n      street\n      streetNumber\n    }\n  }\n": types.GetUserDataDocument,
     "\n  query GetGuitars(\n    $offset: Int!\n    $limit: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitars(offset: $offset, limit: $limit, sort: $sort, filters: $filters) {\n      data {\n        _id\n        availability {\n          name\n          _id\n        }\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarsDocument,
 };
@@ -36,6 +37,10 @@ export function gql(source: string): unknown;
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation Login($loginCredentials: LoginCredentialsInput!) {\n    login(loginCredentials: $loginCredentials) {\n      accessToken\n      refreshToken\n    }\n  }\n"): (typeof documents)["\n  mutation Login($loginCredentials: LoginCredentialsInput!) {\n    login(loginCredentials: $loginCredentials) {\n      accessToken\n      refreshToken\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
