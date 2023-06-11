@@ -37,9 +37,9 @@ const authLink = setContext((operation, { headers, ...rest }) => {
 const client = new ApolloClient({
   connectToDevTools: true,
   defaultOptions: {
-    mutate: {
-      errorPolicy: "all", // set globally errorPolicy, znalezione tutaj: https://stackoverflow.com/a/48419218
-    },
+    // mutate: {
+    //   errorPolicy: "all", // set globally errorPolicy, znalezione tutaj: https://stackoverflow.com/a/48419218
+    // },
   },
   // uri: SERVER_URLs.GRAPH_QL, // use this if you don't to use auth, if using auth then no need to use this as authLink has uri already
   cache: new InMemoryCache(),

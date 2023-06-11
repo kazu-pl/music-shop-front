@@ -1,3 +1,5 @@
+import jwtDecode, { JwtPayload } from "jwt-decode";
+
 const LOCALSTORAGE_AUTH_TOKENS = "tokens-graphql";
 
 interface Tokens {
@@ -14,4 +16,23 @@ export const getTokens = (): Tokens | null => {
   if (!tokens) return null;
 
   return JSON.parse(tokens);
+};
+
+export const isTokenExpired = (token: string) => {
+  const decodedToken = jwtDecode<JwtPayload>(token);
+
+  return decodedToken.exp ? decodedToken.exp < Date.now() / 1000 : true;
+};
+
+export const removeTokens = () => {
+  localStorage.removeItem(LOCALSTORAGE_AUTH_TOKENS);
+};
+
+export const tokenExpiresInSeconds = (token?: string) => {
+  if (!token) {
+    return 0;
+  }
+
+  const decodedToken = jwtDecode<JwtPayload>(token);
+  return decodedToken.exp ? decodedToken.exp - Date.now() / 1000 || 0 : 0;
 };
