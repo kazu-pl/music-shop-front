@@ -13,6 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  query GetGuitarFilters(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        description\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarFiltersDocument,
     "\n  query GetUserDataForWrapper {\n    getUserData {\n      name\n      surname\n      email\n      street\n      streetNumber\n      postalCode\n      city\n      phone\n    }\n  }\n": types.GetUserDataForWrapperDocument,
     "\n  mutation UpdateUserData($data: User!) {\n    updateUserData(data: $data) {\n      message\n    }\n  }\n": types.UpdateUserDataDocument,
     "\n  mutation UpdateUserPassword($newPasswordInput: newPasswordInput!) {\n    updateUserPassword(newPasswordInput: $newPasswordInput) {\n      message\n    }\n  }\n": types.UpdateUserPasswordDocument,
@@ -37,6 +38,10 @@ const documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarFilters(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        description\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarFilters(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        description\n        type\n      }\n      totalItems\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

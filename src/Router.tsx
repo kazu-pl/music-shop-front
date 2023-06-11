@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { PATHS_CORE } from "./common/constants/paths";
+import { PATHS_ADMIN, PATHS_CORE } from "./common/constants/paths";
 import ShopView from "features/shop/views/ShopView";
 import AccountView from "features/core/views/AccountView";
 import LoginView from "features/core/views/LoginView";
@@ -7,6 +7,7 @@ import RegisterView from "features/core/views/RegisterView";
 import LogoutView from "features/core/views/LogoutView";
 import PrivateRoute from "common/auth/PrivateRoute";
 import PublicOnlyRoute from "common/auth/publicOnlyRoute";
+import GuitarFiltersList from "features/admin/view/GuitarFiltersList/GuitarFiltersList";
 
 const Router = () => {
   return (
@@ -42,6 +43,14 @@ const Router = () => {
           element={
             <PrivateRoute>
               <AccountView />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={PATHS_ADMIN.FILTERS_LIST}
+          element={
+            <PrivateRoute onlyForAdmin>
+              <GuitarFiltersList />
             </PrivateRoute>
           }
         />
