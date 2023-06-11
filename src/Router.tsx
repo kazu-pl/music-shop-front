@@ -7,7 +7,8 @@ import RegisterView from "features/core/views/RegisterView";
 import LogoutView from "features/core/views/LogoutView";
 import PrivateRoute from "common/auth/PrivateRoute";
 import PublicOnlyRoute from "common/auth/publicOnlyRoute";
-import GuitarFiltersList from "features/admin/view/GuitarFiltersList/GuitarFiltersList";
+import GuitarFiltersList from "features/admin/view/GuitarFiltersListView";
+import AddGuitarFilterView from "features/admin/view/AddGuitarFilterView/AddGuitarFilterView";
 
 const Router = () => {
   return (
@@ -51,6 +52,14 @@ const Router = () => {
           element={
             <PrivateRoute onlyForAdmin>
               <GuitarFiltersList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={PATHS_ADMIN.ADD_FILTER}
+          element={
+            <PrivateRoute onlyForAdmin>
+              <AddGuitarFilterView />
             </PrivateRoute>
           }
         />

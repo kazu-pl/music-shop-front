@@ -167,7 +167,7 @@ const ShopLayout = ({ children, title }: ShopLayoutProps) => {
         }
       />
       <Container>
-        <Box mt={2} mb={2}>
+        <Box mt={2} mb={2} display={"flex"} justifyContent={"center"}>
           <Typography variant="h4" component={"h1"}>
             {title}
           </Typography>

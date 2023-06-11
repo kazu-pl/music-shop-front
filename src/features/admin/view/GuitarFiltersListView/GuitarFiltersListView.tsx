@@ -17,7 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { PATHS_ADMIN } from "common/constants/paths";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import filtersMap from "./data/filtersMap";
+import filtersMap from "../../data/filtersMap";
+import Button from "components/Button/Button";
 
 const GET_GUITAR_FILTERS = gql(/* GraphQL */ `
   query GetGuitarFilters(
@@ -37,7 +38,7 @@ const GET_GUITAR_FILTERS = gql(/* GraphQL */ `
   }
 `);
 
-const GuitarFiltersList = () => {
+const GuitarFiltersListView = () => {
   const navigate = useNavigate();
   const [params, setParams] = useState<{
     type: GuitarFilterTypeEnum;
@@ -56,6 +57,7 @@ const GuitarFiltersList = () => {
       offset: params.offset,
       type: params.type,
     },
+    fetchPolicy: "network-only",
   });
 
   const fetchFilters = useCallback(() => {
@@ -176,8 +178,11 @@ const GuitarFiltersList = () => {
           },
         ]}
       />
+      <Box mt={2} display={"flex"} justifyContent={"flex-end"}>
+        <Button to={PATHS_ADMIN.ADD_FILTER}>Dodaj nowy</Button>
+      </Box>
     </ShopLayout>
   );
 };
 
-export default GuitarFiltersList;
+export default GuitarFiltersListView;
