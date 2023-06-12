@@ -12,6 +12,7 @@ import AddGuitarFilterView from "features/admin/view/AddGuitarFilterView/AddGuit
 import GuitarFilterDetailsView from "features/admin/view/GuitarFilterDetailsView";
 import GuitarListView from "features/admin/view/GuitarListView/GuitarListView";
 import AddGuitarView from "features/admin/view/AddGuitarView/AddGuitarView";
+import GuitarDetailsView from "features/admin/view/GuitarDetailsView";
 
 const Router = () => {
   return (
@@ -90,14 +91,14 @@ const Router = () => {
             </PrivateRoute>
           }
         />
-        {/* <Route
-          path={PATHS_ADMIN.SINGLE_FILTER(":id")}
+        <Route
+          path={PATHS_ADMIN.SINGLE_GUITAR(":id")}
           element={
             <PrivateRoute onlyForAdmin>
-              <GuitarFilterDetailsView />
+              <GuitarDetailsView />
             </PrivateRoute>
           }
-        /> */}
+        />
       </Routes>
     </>
   );
