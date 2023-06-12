@@ -7,7 +7,6 @@ import TextFieldFormik from "components/formik/TextFieldFormik";
 import { Form, Formik } from "formik";
 import ShopLayout from "layouts/ShopLayout/ShopLayout";
 import MenuItem from "@mui/material/MenuItem";
-import filtersMap from "features/admin/data/filtersMap";
 import { GuitarFilterTypeEnum } from "__generated__/graphql";
 import { gql } from "__generated__";
 import { useMutation, useQuery } from "@apollo/client";
@@ -15,8 +14,6 @@ import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { PATHS_ADMIN } from "common/constants/paths";
 import Grid from "@mui/material/Grid";
-import CircularProgress from "@mui/material/CircularProgress";
-
 const GET_AVAILABILITIES = gql(/* GraphQL */ `
   query GetGuitarAvailabilities(
     $type: GuitarFilterTypeEnum!

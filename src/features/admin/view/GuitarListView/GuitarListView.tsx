@@ -1,7 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import { gql } from "__generated__";
 import {
-  GetGuitarFiltersQuery,
   GetGuitarsFilters,
   GetGuitarsWithDataLoaderQuery,
   GuitarFilterTypeEnum,
@@ -15,7 +14,6 @@ import Table from "components/Table";
 import renderMaxLengthText from "utils/renderMaxLengthText";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { PATHS_ADMIN } from "common/constants/paths";
@@ -273,13 +271,6 @@ const GuitarListView = () => {
                   onClick={() => navigate(PATHS_ADMIN.SINGLE_GUITAR(row._id))}
                 >
                   <EditIcon />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    console.log("remove");
-                  }}
-                >
-                  <DeleteIcon />
                 </IconButton>
               </Box>
             ),
