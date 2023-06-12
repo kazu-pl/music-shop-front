@@ -10,6 +10,8 @@ import PublicOnlyRoute from "common/auth/publicOnlyRoute";
 import GuitarFiltersList from "features/admin/view/GuitarFiltersListView";
 import AddGuitarFilterView from "features/admin/view/AddGuitarFilterView/AddGuitarFilterView";
 import GuitarFilterDetailsView from "features/admin/view/GuitarFilterDetailsView";
+import GuitarListView from "features/admin/view/GuitarListView/GuitarListView";
+import AddGuitarView from "features/admin/view/AddGuitarView/AddGuitarView";
 
 const Router = () => {
   return (
@@ -72,6 +74,30 @@ const Router = () => {
             </PrivateRoute>
           }
         />
+        <Route
+          path={PATHS_ADMIN.GUITARS_LIST}
+          element={
+            <PrivateRoute onlyForAdmin>
+              <GuitarListView />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={PATHS_ADMIN.ADD_GUITAR}
+          element={
+            <PrivateRoute onlyForAdmin>
+              <AddGuitarView />
+            </PrivateRoute>
+          }
+        />
+        {/* <Route
+          path={PATHS_ADMIN.SINGLE_FILTER(":id")}
+          element={
+            <PrivateRoute onlyForAdmin>
+              <GuitarFilterDetailsView />
+            </PrivateRoute>
+          }
+        /> */}
       </Routes>
     </>
   );
