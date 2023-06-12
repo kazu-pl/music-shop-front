@@ -56,7 +56,6 @@ const AddGuitarFilterView = () => {
   });
 
   const handleSubmit = (values: FormValues) => {
-    console.log({ values });
     addGuitarFilter({ variables: { newGuitarFilter: values } });
   };
 
