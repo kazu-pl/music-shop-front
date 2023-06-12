@@ -7,14 +7,13 @@ import { gql } from "__generated__";
 import { CircularProgress } from "components/Button/Button.styled";
 import Typography from "@mui/material/Typography";
 import GuitarDataDisplayer from "./components/GuitarDataDisplayer";
-import GuitarForm from "./components/GuitarForm";
+import GuitarForm, { FormValues } from "./components/GuitarForm";
 import Button from "components/Button/Button";
 import Box from "@mui/material/Box";
 import { useSnackbar } from "notistack";
 import DeleteGuitarModal from "./components/DeleteGuitarModal";
 import { PATHS_ADMIN } from "common/constants/paths";
-import yup from "common/yup/yup";
-
+import SERVER_URLs from "common/constants/serverUrls";
 const GET_GUITAR_TO_EDIT = gql(/* GraphQL */ `
   query GetGuitarToEdit($getGuitarId: ID!) {
     getGuitar(id: $getGuitarId) {
@@ -93,63 +92,11 @@ const DELETE_GUITAR = gql(/* GraphQL */ `
     }
   }
 `);
-
-const validationSchema = yup.object({
-  availabilityId: yup.string().required(),
-  bodyWoodId: yup.string().required(),
-  bridgeId: yup.string().required(),
-  description: yup.string(),
-  fingerboardWoodId: yup.string().required(),
-  fretsNumber: yup.number().required(),
-  guitarTypeId: yup.string().required(),
-  name: yup.string().required(),
-  pickupsSetId: yup.string().required(),
-  price: yup.number().required(),
-  producerId: yup.string().required(),
-  scaleLength: yup.number().required(),
-  shapeId: yup.string().required(),
-  stringsNumber: yup.number().required(),
-});
-
-interface FormValues {
-  availabilityId: string;
-  bodyWoodId: string;
-  bridgeId: string;
-  description: string;
-  fingerboardWoodId: string;
-  fretsNumber: number;
-  guitarTypeId: string;
-  name: string;
-  pickupsSetId: string;
-  price: number;
-  producerId: string;
-  scaleLength: number;
-  shapeId: string;
-  stringsNumber: number;
-}
-
-const initialValues: FormValues = {
-  producerId: "",
-  name: "",
-
-  description: "",
-  guitarTypeId: "",
-
-  bodyWoodId: "",
-  fingerboardWoodId: "",
-
-  bridgeId: "",
-  pickupsSetId: "",
-
-  scaleLength: 24.75,
-  stringsNumber: 6,
-
-  fretsNumber: 24,
-  price: 0,
-
-  shapeId: "",
-  availabilityId: "",
-};
+const UPDATE_IMAGE = gql(/* GraphQL */ `
+  mutation UpdateGuitarImage($image: Upload!, $guitarId: ID!) {
+    updateGuitarImage(image: $image, guitarId: $guitarId)
+  }
+`);
 
 const GuitarFilterDetailsView = () => {
   const id = useParams().id;
@@ -199,8 +146,8 @@ const GuitarFilterDetailsView = () => {
     onCompleted(data) {
       const message = data.removeGuitar;
       console.log({ deleteGuitar_onCompleted_message: message });
-      enqueueSnackbar("sukces", { variant: "info" });
-      navigate(PATHS_ADMIN.FILTERS_LIST);
+      enqueueSnackbar("Usunieto gitarę", { variant: "info" });
+      navigate(PATHS_ADMIN.GUITARS_LIST);
     },
     onError(error) {
       enqueueSnackbar(error.message, { variant: "error" });
@@ -209,6 +156,27 @@ const GuitarFilterDetailsView = () => {
 
   const handleDeleteGuitar = () => {
     deleteGuitar();
+  };
+
+  const [mutate] = useMutation(UPDATE_IMAGE, {
+    onCompleted(data) {
+      // const id = data.updateGuitarImage; // id nowo powstałeo zdjęcia
+      refetch();
+      enqueueSnackbar("Zaktualizowano zdjęcie", { variant: "success" });
+    },
+    onError(error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    },
+  });
+
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = ({
+    target: { validity, files },
+  }) => {
+    if (validity.valid && files) {
+      mutate({
+        variables: { image: Array.from(files)[0], guitarId: id || "" },
+      });
+    }
   };
 
   return (
@@ -243,6 +211,7 @@ const GuitarFilterDetailsView = () => {
           )}
         </StyledPapperWrapper>
       </Box>
+
       <Box
         maxWidth={800}
         width={"100%"}
@@ -253,7 +222,33 @@ const GuitarFilterDetailsView = () => {
       >
         <StyledPapperWrapper>
           <Box mb={2}>
-            <Typography variant="h6">Usuwnanie filtru</Typography>
+            <Typography variant="h6">Edycja zdjęcia</Typography>
+          </Box>
+
+          {data?.getGuitar.imageId && (
+            <Box maxWidth={300} ml="auto" mr="auto" mb={2}>
+              <img
+                src={SERVER_URLs.FILES(data?.getGuitar.imageId)}
+                alt="zdjęcie"
+                style={{ width: "100%" }}
+              />
+            </Box>
+          )}
+          <input type="file" required onChange={onChange} />
+        </StyledPapperWrapper>
+      </Box>
+
+      <Box
+        maxWidth={800}
+        width={"100%"}
+        borderRadius={1}
+        mt={2}
+        ml={"auto"}
+        mr={"auto"}
+      >
+        <StyledPapperWrapper>
+          <Box mb={2}>
+            <Typography variant="h6">Usuwnanie gitary</Typography>
           </Box>
           <DeleteGuitarModal onActionBtnClick={handleDeleteGuitar} />
         </StyledPapperWrapper>

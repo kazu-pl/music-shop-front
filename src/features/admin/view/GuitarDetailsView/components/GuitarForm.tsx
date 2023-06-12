@@ -161,7 +161,7 @@ const validationSchema = yup.object({
   stringsNumber: yup.number().required(),
 });
 
-interface FormValues {
+export interface FormValues {
   availabilityId: string;
   bodyWoodId: string;
   bridgeId: string;

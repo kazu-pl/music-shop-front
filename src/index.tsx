@@ -13,7 +13,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { getTokens } from "./common/auth/tokens";
 import SERVER_URLs from "./common/constants/serverUrls";
-
+import { createUploadLink } from "apollo-upload-client";
 const httpLink = createHttpLink({
   uri: `${SERVER_URLs.GRAPH_QL}`,
 });
@@ -48,7 +48,24 @@ const client = new ApolloClient({
   },
   // uri: SERVER_URLs.GRAPH_QL, // use this if you don't to use auth, if using auth then no need to use this as authLink has uri already
   cache,
-  link: authLink.concat(httpLink), // if using link with authLink then you don't need to use above uri
+
+  link: createUploadLink({
+    headers: {
+      "Apollo-Require-Preflight": "true",
+      authorization: getTokens()?.accessToken
+        ? `Bearer ${getTokens()?.accessToken}`
+        : "",
+    },
+    uri: `${SERVER_URLs.GRAPH_QL}`,
+  }),
+  //
+  //
+  //
+  // link: authLink
+  //   .concat(httpLink)
+  //   .concat(
+  //     createUploadLink({ headers: { "Apollo-Require-Preflight": "true" } })
+  //   ), // if using link with authLink then you don't need to use above uri
 });
 
 const root = ReactDOM.createRoot(

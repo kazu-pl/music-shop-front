@@ -26,6 +26,7 @@ const documents = {
     "\n  query GetGuitarToEdit($getGuitarId: ID!) {\n    getGuitar(id: $getGuitarId) {\n      _id\n      name\n      description\n      fretsNumber\n      imageId\n      price\n      scaleLength\n      stringsNumber\n      availability {\n        _id\n        name\n        description\n        type\n      }\n      bodyWood {\n        _id\n        description\n        name\n        type\n      }\n      bridge {\n        _id\n        description\n        name\n        type\n      }\n      fingerboardWood {\n        _id\n        description\n        name\n        type\n      }\n      guitarType {\n        _id\n        description\n        name\n        type\n      }\n      pickupsSet {\n        _id\n        description\n        name\n        type\n      }\n      producer {\n        _id\n        description\n        name\n        type\n      }\n      shape {\n        _id\n        description\n        name\n        type\n      }\n    }\n  }\n": types.GetGuitarToEditDocument,
     "\n  mutation UpdateGuitarData($guitar: UpdateGuitarInput!) {\n    updateGuitar(guitar: $guitar) {\n      message\n    }\n  }\n": types.UpdateGuitarDataDocument,
     "\n  mutation RemoveGuitar($removeGuitarId: ID!) {\n    removeGuitar(id: $removeGuitarId) {\n      __typename\n    }\n  }\n": types.RemoveGuitarDocument,
+    "\n  mutation UpdateGuitarImage($image: Upload!, $guitarId: ID!) {\n    updateGuitarImage(image: $image, guitarId: $guitarId)\n  }\n": types.UpdateGuitarImageDocument,
     "\n  query GetGuitarFilter($getGuitarFilterId: ID!) {\n    getGuitarFilter(id: $getGuitarFilterId) {\n      _id\n      name\n      description\n      type\n    }\n  }\n": types.GetGuitarFilterDocument,
     "\n  mutation UpdateGuitarFilter($guitarFilter: UpdateGuitarFilterInput!) {\n    updateGuitarFilter(guitarFilter: $guitarFilter) {\n      message\n    }\n  }\n": types.UpdateGuitarFilterDocument,
     "\n  mutation RemoveGuitarFilter($removeGuitarFilterId: ID!) {\n    removeGuitarFilter(id: $removeGuitarFilterId) {\n      message\n    }\n  }\n": types.RemoveGuitarFilterDocument,
@@ -107,6 +108,10 @@ export function gql(source: "\n  mutation UpdateGuitarData($guitar: UpdateGuitar
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation RemoveGuitar($removeGuitarId: ID!) {\n    removeGuitar(id: $removeGuitarId) {\n      __typename\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveGuitar($removeGuitarId: ID!) {\n    removeGuitar(id: $removeGuitarId) {\n      __typename\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateGuitarImage($image: Upload!, $guitarId: ID!) {\n    updateGuitarImage(image: $image, guitarId: $guitarId)\n  }\n"): (typeof documents)["\n  mutation UpdateGuitarImage($image: Upload!, $guitarId: ID!) {\n    updateGuitarImage(image: $image, guitarId: $guitarId)\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
