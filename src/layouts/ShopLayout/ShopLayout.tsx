@@ -42,9 +42,10 @@ export const GET_USER_DATA_FOR_SHOPLAYOUT = gql(/* GraphQL */ `
 export interface ShopLayoutProps {
   children?: React.ReactNode;
   title: string;
+  extra?: React.ReactNode;
 }
 
-const ShopLayout = ({ children, title }: ShopLayoutProps) => {
+const ShopLayout = ({ children, title, extra }: ShopLayoutProps) => {
   const [fetch, { data }] = useLazyQuery(GET_USER_DATA_FOR_SHOPLAYOUT, {
     errorPolicy: "all",
   });
@@ -167,10 +168,18 @@ const ShopLayout = ({ children, title }: ShopLayoutProps) => {
         }
       />
       <Container>
-        <Box mt={2} mb={2} display={"flex"} justifyContent={"center"}>
+        <Box
+          mt={2}
+          mb={2}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
           <Typography variant="h4" component={"h1"}>
             {title}
           </Typography>
+
+          {extra}
         </Box>
         <>{children}</>
       </Container>
