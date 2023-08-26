@@ -38,7 +38,6 @@ const documents = {
     "\n  mutation RemoveUser {\n    removeUser {\n      message\n    }\n  }\n": types.RemoveUserDocument,
     "\n  mutation Login($loginCredentials: LoginCredentialsInput!) {\n    login(loginCredentials: $loginCredentials) {\n      accessToken\n      refreshToken\n    }\n  }\n": types.LoginDocument,
     "\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n": types.RegisterDocument,
-    "\n  query GetGuitars(\n    $offset: Int!\n    $limit: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitars(offset: $offset, limit: $limit, sort: $sort, filters: $filters) {\n      data {\n        _id\n        availability {\n          name\n          _id\n        }\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarsDocument,
     "\n  query GetUserDataForShopLayout {\n    getUserData {\n      name\n      surname\n      email\n      street\n      streetNumber\n      postalCode\n      city\n      phone\n    }\n  }\n": types.GetUserDataForShopLayoutDocument,
 };
 
@@ -156,10 +155,6 @@ export function gql(source: "\n  mutation Login($loginCredentials: LoginCredenti
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  query GetGuitars(\n    $offset: Int!\n    $limit: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitars(offset: $offset, limit: $limit, sort: $sort, filters: $filters) {\n      data {\n        _id\n        availability {\n          name\n          _id\n        }\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitars(\n    $offset: Int!\n    $limit: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitars(offset: $offset, limit: $limit, sort: $sort, filters: $filters) {\n      data {\n        _id\n        availability {\n          name\n          _id\n        }\n      }\n      totalItems\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

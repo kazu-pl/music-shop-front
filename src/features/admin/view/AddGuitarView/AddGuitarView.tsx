@@ -14,6 +14,7 @@ import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { PATHS_ADMIN } from "common/constants/paths";
 import Grid from "@mui/material/Grid";
+
 const GET_AVAILABILITIES = gql(/* GraphQL */ `
   query GetGuitarAvailabilities(
     $type: GuitarFilterTypeEnum!
@@ -282,14 +283,13 @@ const AddGuitarView = () => {
   });
 
   const handleSubmit = (values: FormValues) => {
-    console.log({ values });
     addGuitar({ variables: { newGuitar: values } });
     // addGuitarFilter({ variables: { newGuitarFilter: values } });
   };
 
   return (
-    <ShopLayout title="Panel admina - dodaj filtr">
-      <HelmetDecorator title="dodaj filtr" />
+    <ShopLayout title="Panel admina - dodaj gitarę">
+      <HelmetDecorator title="dodaj gitarę" />
       <Box maxWidth={800} ml="auto" mr="auto">
         <StyledPapperWrapper>
           <Formik

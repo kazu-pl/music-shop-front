@@ -1,3 +1,31 @@
+# using TextField as select throwns an error about uncontrolled input:
+
+If you use `TextField` component with `select` prop set to `true` and you receive an error like this:
+
+```zsh
+MUI: A component is changing the uncontrolled value state of Select to be controlled.
+Elements should not switch from uncontrolled to controlled (or vice versa).
+
+```
+
+then you have to provide `value` prop to the MUI component. Since you probably use the Formik component that returns TextField component you have to pass `value` prop:
+
+```tsx
+const TextFieldFormik = () => {
+    return (
+    <TextField
+      name={field.name}
+      value={field.value || (rest.select ? valueWhenSelect : undefined)} // pass here `value` key when `select` is `true` to not get any warning about controlled/uncontrolled input
+      onBlur={field.onBlur}
+      onChange={handleChange}
+      error={meta.touched && !!meta.error}
+      helperText={(meta.touched && meta.error) || helperText}
+      {...rest}
+    />
+
+}
+```
+
 # How to generate TypeScript types for queries and mutations:
 
 `1` - install dependencies: `yarn add -D @graphql-codegen/cli @graphql-codegen/client-preset`

@@ -8,6 +8,10 @@ export type TextFieldFormikProps = Omit<
 > & {
   name: string;
   /**
+   * value passed to TextField when `select` prop is `true`. Pass here `value` key when `select` is `true` to not get any warning about controlled/uncontrolled input
+   */
+  valueWhenSelect?: string;
+  /**
    * `onChange` prop may be used when you need to fetch some data on every input change. formik onChange handler `field.onChange` is applied so you don't need to additionaly set the value
    *
    * Below is the implementation that shows how `onChange` events are handled in `TextFieldFormik`:
@@ -34,6 +38,7 @@ const TextFieldFormik = ({
   name,
   helperText,
   onChange,
+  valueWhenSelect,
   ...rest
 }: TextFieldFormikProps) => {
   const [field, meta] = useField(name);
@@ -46,7 +51,7 @@ const TextFieldFormik = ({
   return (
     <TextField
       name={field.name}
-      value={field.value}
+      value={field.value || (rest.select ? valueWhenSelect : undefined)} // pass here `value` key when `select` is `true` to not get any warning about controlled/uncontrolled input
       onBlur={field.onBlur}
       onChange={handleChange}
       error={meta.touched && !!meta.error}
