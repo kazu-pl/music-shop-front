@@ -465,7 +465,7 @@ const GuitarForm = ({
             isLoading={loading}
             fullWidth
           >
-            {"Dodaj"}
+            {"Aktualizuj"}
           </Button>
         </Box>
         {extra && (

@@ -71,7 +71,7 @@ const ShopLayout = ({ children, title, extra }: ShopLayoutProps) => {
         }
         additionalControls={
           <Box display="flex" alignItems={"center"} justifyContent={"center"}>
-            <Badge badgeContent={1} color="error">
+            <Badge badgeContent={0} color="error">
               {/* @ts-ignore */}
               <IconButton LinkComponent={Link} to={PATHS_CORE.CHECKOUT}>
                 <ColoredIconWrapper color="white">
@@ -85,7 +85,7 @@ const ShopLayout = ({ children, title, extra }: ShopLayoutProps) => {
               alignItems={"center"}
               justifyContent={"center"}
             >
-              <Badge badgeContent={2} color="error">
+              <Badge badgeContent={0} color="error">
                 {/* @ts-ignore */}
                 <IconButton LinkComponent={Link} to={PATHS_CORE.WISHLIST}>
                   <ColoredIconWrapper color="white">
