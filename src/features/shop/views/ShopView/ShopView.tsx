@@ -13,8 +13,8 @@ import "./ShopView.css";
 import Grid from "@mui/material/Grid";
 import ShopLayout from "layouts/ShopLayout/ShopLayout";
 import HelmetDecorator from "components/HelmetDecorator/HelmetDecorator";
-import { useState } from "react";
-import GuitarTile from "./components/GuitarTile";
+import { useLayoutEffect, useState } from "react";
+import GuitarTile from "../../components/GuitarTile";
 import TablePagination from "@mui/material/TablePagination";
 import FiltersList, {
   FiltersListProps,
@@ -22,6 +22,8 @@ import FiltersList, {
 } from "./components/FiltersList";
 import AbsoluteLoadingSpinner from "components/AbsoluteLoadingSpinner";
 import Typography from "@mui/material/Typography";
+import { checkIfIsOnWishlist } from "features/shop/components/GuitarTile/GuitarTile";
+import useFetchWishList from "../WishListView/useFetchWishList";
 
 const GET_GUITARS_QUERY = gql(/* GraphQL */ `
   query GetGuitarsWithDataLoader(
@@ -154,8 +156,17 @@ const ShopView = () => {
       ...(sortedItem?.sortBy && { sortBy: sortedItem.sortBy }),
       ...(sortedItem?.sortOrder && { sortOrder: sortedItem.sortOrder }),
     }));
-    setFilters((prev) => ({ ...prev, ...values }));
+    setFilters((prev) => ({
+      ...prev,
+      ...values,
+    }));
   };
+
+  const { data, fetchWishlist } = useFetchWishList();
+
+  useLayoutEffect(() => {
+    fetchWishlist();
+  }, [fetchWishlist]);
 
   return (
     <ShopLayout title="Sklep muzyczny MusicShop">
@@ -183,6 +194,8 @@ const ShopView = () => {
                       index + 1 ===
                       guitarsData.getGuitarsWithDataLoader.data.length
                     }
+                    isOnWishlist={checkIfIsOnWishlist(guitar._id, data)}
+                    fetchWishlist={fetchWishlist}
                   />
                 )
               )

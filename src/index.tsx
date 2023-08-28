@@ -14,6 +14,7 @@ import { setContext } from "@apollo/client/link/context";
 import { getTokens } from "./common/auth/tokens";
 import SERVER_URLs from "./common/constants/serverUrls";
 import { createUploadLink } from "apollo-upload-client";
+
 const httpLink = createHttpLink({
   uri: `${SERVER_URLs.GRAPH_QL}`,
 });
@@ -56,11 +57,12 @@ const client = new ApolloClient({
         ? `Bearer ${getTokens()?.accessToken}`
         : "",
     },
+
     uri: `${SERVER_URLs.GRAPH_QL}`,
   }),
   //
   //
-  //
+
   // link: authLink
   //   .concat(httpLink)
   //   .concat(
