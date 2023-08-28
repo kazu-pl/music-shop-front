@@ -286,7 +286,7 @@ const FiltersList = ({ handleSubmit }: FiltersListProps) => {
   });
 
   return (
-    <Box boxShadow={1} height={"100%"} p={1}>
+    <Box boxShadow={1} p={1}>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}

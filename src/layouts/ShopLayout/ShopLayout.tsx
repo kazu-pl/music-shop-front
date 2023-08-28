@@ -20,9 +20,10 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useLazyQuery } from "@apollo/client";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { gql } from "__generated__";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import useFetchWishList from "features/shop/views/WishListView/useFetchWishList";
 
 export const GET_USER_DATA_FOR_SHOPLAYOUT = gql(/* GraphQL */ `
   query GetUserDataForShopLayout {
@@ -50,9 +51,26 @@ const ShopLayout = ({ children, title, extra }: ShopLayoutProps) => {
     errorPolicy: "all",
   });
 
+  useEffect(() => {
+    console.log({ data });
+  }, [data]);
+
+  const { data: whishlistData, fetchWishlist } = useFetchWishList();
+
+  useEffect(() => {
+    fetchWishlist();
+  }, [fetchWishlist]);
+
   useLayoutEffect(() => {
     const tokens = getTokens();
-    if (tokens && !isTokenExpired(tokens.accessToken || "")) {
+    console.log({
+      tokens,
+      isTokenExpired: tokens
+        ? !isTokenExpired(tokens.accessToken)
+        : "nie ma tokenu wgl",
+    });
+    if (tokens && !isTokenExpired(tokens.accessToken)) {
+      console.log("##################### JESTEM W ŚrODU I POBIERAM #######");
       fetch();
     }
   }, [fetch, title]);
@@ -85,7 +103,12 @@ const ShopLayout = ({ children, title, extra }: ShopLayoutProps) => {
               alignItems={"center"}
               justifyContent={"center"}
             >
-              <Badge badgeContent={0} color="error">
+              <Badge
+                badgeContent={
+                  whishlistData?.getGuitarsWithDataLoader.totalItems || 0
+                }
+                color="error"
+              >
                 {/* @ts-ignore */}
                 <IconButton LinkComponent={Link} to={PATHS_CORE.WISHLIST}>
                   <ColoredIconWrapper color="white">

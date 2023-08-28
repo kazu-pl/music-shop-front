@@ -13,6 +13,7 @@ import GuitarFilterDetailsView from "features/admin/view/GuitarFilterDetailsView
 import GuitarListView from "features/admin/view/GuitarListView/GuitarListView";
 import AddGuitarView from "features/admin/view/AddGuitarView/AddGuitarView";
 import GuitarDetailsView from "features/admin/view/GuitarDetailsView";
+import WishListView from "features/shop/views/WishListView/WishListView";
 
 const Router = () => {
   return (
@@ -48,6 +49,14 @@ const Router = () => {
           element={
             <PrivateRoute>
               <AccountView />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={PATHS_CORE.WISHLIST}
+          element={
+            <PrivateRoute>
+              <WishListView />
             </PrivateRoute>
           }
         />
