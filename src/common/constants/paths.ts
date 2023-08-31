@@ -6,6 +6,7 @@ export const PATHS_CORE = {
   WISHLIST: "/wishlist",
   CHECKOUT: "/checkout",
   LOGOUT: "/logout",
+  GUITAR_DETAILS: (guitarId: string) => `/guitar/${guitarId}`,
 };
 
 export const PATHS_ADMIN = {
