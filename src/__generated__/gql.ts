@@ -13,9 +13,39 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  mutation AddGuitarFilter($newGuitarFilter: AddGuitarFilterInput!) {\n    addGuitarFilter(newGuitarFilter: $newGuitarFilter) {\n      message\n    }\n  }\n": types.AddGuitarFilterDocument,
+    "\n  query GetGuitarAvailabilities(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarAvailabilitiesDocument,
+    "\n  query GetGuitarTypes(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarTypesDocument,
+    "\n  query GetGuitarBridges(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarBridgesDocument,
+    "\n  query GetFingerboardWood(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetFingerboardWoodDocument,
+    "\n  query GetguitarBodyWood(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetguitarBodyWoodDocument,
+    "\n  query GetPuckupsSet(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetPuckupsSetDocument,
+    "\n  query GetGuitarShape(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarShapeDocument,
+    "\n  query GetGuitarProducers(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarProducersDocument,
+    "\n  mutation AddGuitar($newGuitar: AddGuitarInput!) {\n    addGuitar(newGuitar: $newGuitar) {\n      message\n    }\n  }\n": types.AddGuitarDocument,
+    "\n  query GetGuitarToEdit($getGuitarId: ID!) {\n    getGuitar(id: $getGuitarId) {\n      _id\n      name\n      description\n      fretsNumber\n      imageId\n      price\n      scaleLength\n      stringsNumber\n      availability {\n        _id\n        name\n        description\n        type\n      }\n      bodyWood {\n        _id\n        description\n        name\n        type\n      }\n      bridge {\n        _id\n        description\n        name\n        type\n      }\n      fingerboardWood {\n        _id\n        description\n        name\n        type\n      }\n      guitarType {\n        _id\n        description\n        name\n        type\n      }\n      pickupsSet {\n        _id\n        description\n        name\n        type\n      }\n      producer {\n        _id\n        description\n        name\n        type\n      }\n      shape {\n        _id\n        description\n        name\n        type\n      }\n    }\n  }\n": types.GetGuitarToEditDocument,
+    "\n  mutation UpdateGuitarData($guitar: UpdateGuitarInput!) {\n    updateGuitar(guitar: $guitar) {\n      message\n    }\n  }\n": types.UpdateGuitarDataDocument,
+    "\n  mutation RemoveGuitar($removeGuitarId: ID!) {\n    removeGuitar(id: $removeGuitarId) {\n      __typename\n    }\n  }\n": types.RemoveGuitarDocument,
+    "\n  mutation UpdateGuitarImage($image: Upload!, $guitarId: ID!) {\n    updateGuitarImage(image: $image, guitarId: $guitarId)\n  }\n": types.UpdateGuitarImageDocument,
+    "\n  query GetGuitarFilter($getGuitarFilterId: ID!) {\n    getGuitarFilter(id: $getGuitarFilterId) {\n      _id\n      name\n      description\n      type\n    }\n  }\n": types.GetGuitarFilterDocument,
+    "\n  mutation UpdateGuitarFilter($guitarFilter: UpdateGuitarFilterInput!) {\n    updateGuitarFilter(guitarFilter: $guitarFilter) {\n      message\n    }\n  }\n": types.UpdateGuitarFilterDocument,
+    "\n  mutation RemoveGuitarFilter($removeGuitarFilterId: ID!) {\n    removeGuitarFilter(id: $removeGuitarFilterId) {\n      message\n    }\n  }\n": types.RemoveGuitarFilterDocument,
+    "\n  query GetGuitarFilters(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        description\n        type\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarFiltersDocument,
+    "\n  query GetGuitarsWithDataLoader(\n    $limit: Int!\n    $offset: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitarsWithDataLoader(\n      limit: $limit\n      offset: $offset\n      sort: $sort\n      filters: $filters\n    ) {\n      data {\n        _id\n        name\n        description\n        fretsNumber\n        imageId\n        price\n        scaleLength\n        stringsNumber\n        availability {\n          _id\n          name\n          description\n          type\n        }\n        bodyWood {\n          _id\n          description\n          name\n          type\n        }\n        bridge {\n          _id\n          description\n          name\n          type\n        }\n        fingerboardWood {\n          _id\n          description\n          name\n          type\n        }\n        guitarType {\n          _id\n          description\n          name\n          type\n        }\n        pickupsSet {\n          _id\n          description\n          name\n          type\n        }\n        producer {\n          _id\n          description\n          name\n          type\n        }\n        shape {\n          _id\n          description\n          name\n          type\n        }\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarsWithDataLoaderDocument,
+    "\n  query GetUserDataForWrapper {\n    getUserData {\n      name\n      surname\n      email\n      street\n      streetNumber\n      postalCode\n      city\n      phone\n    }\n  }\n": types.GetUserDataForWrapperDocument,
+    "\n  mutation UpdateUserData($data: User!) {\n    updateUserData(data: $data) {\n      message\n    }\n  }\n": types.UpdateUserDataDocument,
+    "\n  mutation UpdateUserPassword($newPasswordInput: newPasswordInput!) {\n    updateUserPassword(newPasswordInput: $newPasswordInput) {\n      message\n    }\n  }\n": types.UpdateUserPasswordDocument,
+    "\n  mutation RemoveUser {\n    removeUser {\n      message\n    }\n  }\n": types.RemoveUserDocument,
     "\n  mutation Login($loginCredentials: LoginCredentialsInput!) {\n    login(loginCredentials: $loginCredentials) {\n      accessToken\n      refreshToken\n    }\n  }\n": types.LoginDocument,
-    "\n  query getUserData {\n    getUserData {\n      name\n      surname\n      city\n      email\n      phone\n      postalCode\n      street\n      streetNumber\n    }\n  }\n": types.GetUserDataDocument,
-    "\n  query GetGuitars(\n    $offset: Int!\n    $limit: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitars(offset: $offset, limit: $limit, sort: $sort, filters: $filters) {\n      data {\n        _id\n        availability {\n          name\n          _id\n        }\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarsDocument,
+    "\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n": types.RegisterDocument,
+    "\n  mutation AddItemToWishlist($addItemToWishlistId: ID!) {\n    addItemToWishlist(id: $addItemToWishlistId) {\n      message\n    }\n  }\n": types.AddItemToWishlistDocument,
+    "\n  mutation RemoveItemfromWishlist($removeItemfromWishlistId: ID!) {\n    removeItemfromWishlist(id: $removeItemfromWishlistId) {\n      message\n    }\n  }\n": types.RemoveItemfromWishlistDocument,
+    "\n  mutation ResetWholeCheckout {\n    resetWholeCheckout {\n      message\n    }\n  }\n": types.ResetWholeCheckoutDocument,
+    "\n  mutation AddItemToCheckout($addItemToCheckoutId: ID!) {\n    addItemToCheckout(id: $addItemToCheckoutId) {\n      message\n    }\n  }\n": types.AddItemToCheckoutDocument,
+    "\n  query GetGuitarsFromCheckout {\n    getGuitarsFromCheckout {\n      data {\n        id\n        quantity\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarsFromCheckoutDocument,
+    "\n  mutation RemoveItemfromCheckout($removeItemfromCheckoutId: ID!) {\n    removeItemfromCheckout(id: $removeItemfromCheckoutId) {\n      message\n    }\n  }\n": types.RemoveItemfromCheckoutDocument,
+    "\n  query GetGuitarsFromWishlist {\n    getGuitarsFromWishlist {\n      data\n      totalItems\n    }\n  }\n": types.GetGuitarsFromWishlistDocument,
+    "\n  query GetUserDataForShopLayout {\n    getUserData {\n      name\n      surname\n      email\n      street\n      streetNumber\n      postalCode\n      city\n      phone\n    }\n  }\n": types.GetUserDataForShopLayoutDocument,
 };
 
 /**
@@ -35,15 +65,135 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  mutation AddGuitarFilter($newGuitarFilter: AddGuitarFilterInput!) {\n    addGuitarFilter(newGuitarFilter: $newGuitarFilter) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation AddGuitarFilter($newGuitarFilter: AddGuitarFilterInput!) {\n    addGuitarFilter(newGuitarFilter: $newGuitarFilter) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarAvailabilities(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarAvailabilities(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarTypes(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarTypes(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarBridges(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarBridges(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetFingerboardWood(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetFingerboardWood(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetguitarBodyWood(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetguitarBodyWood(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetPuckupsSet(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetPuckupsSet(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarShape(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarShape(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarProducers(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarProducers(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        type\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation AddGuitar($newGuitar: AddGuitarInput!) {\n    addGuitar(newGuitar: $newGuitar) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation AddGuitar($newGuitar: AddGuitarInput!) {\n    addGuitar(newGuitar: $newGuitar) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarToEdit($getGuitarId: ID!) {\n    getGuitar(id: $getGuitarId) {\n      _id\n      name\n      description\n      fretsNumber\n      imageId\n      price\n      scaleLength\n      stringsNumber\n      availability {\n        _id\n        name\n        description\n        type\n      }\n      bodyWood {\n        _id\n        description\n        name\n        type\n      }\n      bridge {\n        _id\n        description\n        name\n        type\n      }\n      fingerboardWood {\n        _id\n        description\n        name\n        type\n      }\n      guitarType {\n        _id\n        description\n        name\n        type\n      }\n      pickupsSet {\n        _id\n        description\n        name\n        type\n      }\n      producer {\n        _id\n        description\n        name\n        type\n      }\n      shape {\n        _id\n        description\n        name\n        type\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarToEdit($getGuitarId: ID!) {\n    getGuitar(id: $getGuitarId) {\n      _id\n      name\n      description\n      fretsNumber\n      imageId\n      price\n      scaleLength\n      stringsNumber\n      availability {\n        _id\n        name\n        description\n        type\n      }\n      bodyWood {\n        _id\n        description\n        name\n        type\n      }\n      bridge {\n        _id\n        description\n        name\n        type\n      }\n      fingerboardWood {\n        _id\n        description\n        name\n        type\n      }\n      guitarType {\n        _id\n        description\n        name\n        type\n      }\n      pickupsSet {\n        _id\n        description\n        name\n        type\n      }\n      producer {\n        _id\n        description\n        name\n        type\n      }\n      shape {\n        _id\n        description\n        name\n        type\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateGuitarData($guitar: UpdateGuitarInput!) {\n    updateGuitar(guitar: $guitar) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateGuitarData($guitar: UpdateGuitarInput!) {\n    updateGuitar(guitar: $guitar) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation RemoveGuitar($removeGuitarId: ID!) {\n    removeGuitar(id: $removeGuitarId) {\n      __typename\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveGuitar($removeGuitarId: ID!) {\n    removeGuitar(id: $removeGuitarId) {\n      __typename\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateGuitarImage($image: Upload!, $guitarId: ID!) {\n    updateGuitarImage(image: $image, guitarId: $guitarId)\n  }\n"): (typeof documents)["\n  mutation UpdateGuitarImage($image: Upload!, $guitarId: ID!) {\n    updateGuitarImage(image: $image, guitarId: $guitarId)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarFilter($getGuitarFilterId: ID!) {\n    getGuitarFilter(id: $getGuitarFilterId) {\n      _id\n      name\n      description\n      type\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarFilter($getGuitarFilterId: ID!) {\n    getGuitarFilter(id: $getGuitarFilterId) {\n      _id\n      name\n      description\n      type\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateGuitarFilter($guitarFilter: UpdateGuitarFilterInput!) {\n    updateGuitarFilter(guitarFilter: $guitarFilter) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateGuitarFilter($guitarFilter: UpdateGuitarFilterInput!) {\n    updateGuitarFilter(guitarFilter: $guitarFilter) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation RemoveGuitarFilter($removeGuitarFilterId: ID!) {\n    removeGuitarFilter(id: $removeGuitarFilterId) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveGuitarFilter($removeGuitarFilterId: ID!) {\n    removeGuitarFilter(id: $removeGuitarFilterId) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarFilters(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        description\n        type\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarFilters(\n    $type: GuitarFilterTypeEnum!\n    $limit: Int!\n    $offset: Int!\n  ) {\n    getGuitarFilters(type: $type, limit: $limit, offset: $offset) {\n      data {\n        _id\n        name\n        description\n        type\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarsWithDataLoader(\n    $limit: Int!\n    $offset: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitarsWithDataLoader(\n      limit: $limit\n      offset: $offset\n      sort: $sort\n      filters: $filters\n    ) {\n      data {\n        _id\n        name\n        description\n        fretsNumber\n        imageId\n        price\n        scaleLength\n        stringsNumber\n        availability {\n          _id\n          name\n          description\n          type\n        }\n        bodyWood {\n          _id\n          description\n          name\n          type\n        }\n        bridge {\n          _id\n          description\n          name\n          type\n        }\n        fingerboardWood {\n          _id\n          description\n          name\n          type\n        }\n        guitarType {\n          _id\n          description\n          name\n          type\n        }\n        pickupsSet {\n          _id\n          description\n          name\n          type\n        }\n        producer {\n          _id\n          description\n          name\n          type\n        }\n        shape {\n          _id\n          description\n          name\n          type\n        }\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarsWithDataLoader(\n    $limit: Int!\n    $offset: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitarsWithDataLoader(\n      limit: $limit\n      offset: $offset\n      sort: $sort\n      filters: $filters\n    ) {\n      data {\n        _id\n        name\n        description\n        fretsNumber\n        imageId\n        price\n        scaleLength\n        stringsNumber\n        availability {\n          _id\n          name\n          description\n          type\n        }\n        bodyWood {\n          _id\n          description\n          name\n          type\n        }\n        bridge {\n          _id\n          description\n          name\n          type\n        }\n        fingerboardWood {\n          _id\n          description\n          name\n          type\n        }\n        guitarType {\n          _id\n          description\n          name\n          type\n        }\n        pickupsSet {\n          _id\n          description\n          name\n          type\n        }\n        producer {\n          _id\n          description\n          name\n          type\n        }\n        shape {\n          _id\n          description\n          name\n          type\n        }\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetUserDataForWrapper {\n    getUserData {\n      name\n      surname\n      email\n      street\n      streetNumber\n      postalCode\n      city\n      phone\n    }\n  }\n"): (typeof documents)["\n  query GetUserDataForWrapper {\n    getUserData {\n      name\n      surname\n      email\n      street\n      streetNumber\n      postalCode\n      city\n      phone\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateUserData($data: User!) {\n    updateUserData(data: $data) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUserData($data: User!) {\n    updateUserData(data: $data) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateUserPassword($newPasswordInput: newPasswordInput!) {\n    updateUserPassword(newPasswordInput: $newPasswordInput) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUserPassword($newPasswordInput: newPasswordInput!) {\n    updateUserPassword(newPasswordInput: $newPasswordInput) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation RemoveUser {\n    removeUser {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveUser {\n    removeUser {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  mutation Login($loginCredentials: LoginCredentialsInput!) {\n    login(loginCredentials: $loginCredentials) {\n      accessToken\n      refreshToken\n    }\n  }\n"): (typeof documents)["\n  mutation Login($loginCredentials: LoginCredentialsInput!) {\n    login(loginCredentials: $loginCredentials) {\n      accessToken\n      refreshToken\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query getUserData {\n    getUserData {\n      name\n      surname\n      city\n      email\n      phone\n      postalCode\n      street\n      streetNumber\n    }\n  }\n"): (typeof documents)["\n  query getUserData {\n    getUserData {\n      name\n      surname\n      city\n      email\n      phone\n      postalCode\n      street\n      streetNumber\n    }\n  }\n"];
+export function gql(source: "\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GetGuitars(\n    $offset: Int!\n    $limit: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitars(offset: $offset, limit: $limit, sort: $sort, filters: $filters) {\n      data {\n        _id\n        availability {\n          name\n          _id\n        }\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitars(\n    $offset: Int!\n    $limit: Int!\n    $sort: GetGuitarsSortInput!\n    $filters: GetGuitarsFilters!\n  ) {\n    getGuitars(offset: $offset, limit: $limit, sort: $sort, filters: $filters) {\n      data {\n        _id\n        availability {\n          name\n          _id\n        }\n      }\n      totalItems\n    }\n  }\n"];
+export function gql(source: "\n  mutation AddItemToWishlist($addItemToWishlistId: ID!) {\n    addItemToWishlist(id: $addItemToWishlistId) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation AddItemToWishlist($addItemToWishlistId: ID!) {\n    addItemToWishlist(id: $addItemToWishlistId) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation RemoveItemfromWishlist($removeItemfromWishlistId: ID!) {\n    removeItemfromWishlist(id: $removeItemfromWishlistId) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveItemfromWishlist($removeItemfromWishlistId: ID!) {\n    removeItemfromWishlist(id: $removeItemfromWishlistId) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation ResetWholeCheckout {\n    resetWholeCheckout {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation ResetWholeCheckout {\n    resetWholeCheckout {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation AddItemToCheckout($addItemToCheckoutId: ID!) {\n    addItemToCheckout(id: $addItemToCheckoutId) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation AddItemToCheckout($addItemToCheckoutId: ID!) {\n    addItemToCheckout(id: $addItemToCheckoutId) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarsFromCheckout {\n    getGuitarsFromCheckout {\n      data {\n        id\n        quantity\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarsFromCheckout {\n    getGuitarsFromCheckout {\n      data {\n        id\n        quantity\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation RemoveItemfromCheckout($removeItemfromCheckoutId: ID!) {\n    removeItemfromCheckout(id: $removeItemfromCheckoutId) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveItemfromCheckout($removeItemfromCheckoutId: ID!) {\n    removeItemfromCheckout(id: $removeItemfromCheckoutId) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarsFromWishlist {\n    getGuitarsFromWishlist {\n      data\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarsFromWishlist {\n    getGuitarsFromWishlist {\n      data\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetUserDataForShopLayout {\n    getUserData {\n      name\n      surname\n      email\n      street\n      streetNumber\n      postalCode\n      city\n      phone\n    }\n  }\n"): (typeof documents)["\n  query GetUserDataForShopLayout {\n    getUserData {\n      name\n      surname\n      email\n      street\n      streetNumber\n      postalCode\n      city\n      phone\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
