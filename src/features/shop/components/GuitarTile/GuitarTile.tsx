@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import SERVER_URLs from "common/constants/serverUrls";
 import renderMaxLengthText from "utils/renderMaxLengthText";
 import Button from "components/Button/Button";
-import { PATHS_ADMIN } from "common/constants/paths";
+import { PATHS_CORE } from "common/constants/paths";
 import Grid from "@mui/material/Grid";
 import { IconButton } from "@mui/material";
 import ColoredIconWrapper from "components/ColoredIconWrapper/ColoredIconWrapper";
@@ -167,7 +167,7 @@ const GuitarTile = ({
           <Typography>{`${data.availability.name}`}</Typography>
         </Box>
         <Box mb={2} display={"flex"}>
-          <Button to={PATHS_ADMIN.SINGLE_GUITAR(data._id)}>więcej</Button>
+          <Button to={PATHS_CORE.GUITAR_DETAILS(data._id)}>więcej</Button>
           <IconButton>
             <ColoredIconWrapper color="primary">
               <ShoppingCartIcon />

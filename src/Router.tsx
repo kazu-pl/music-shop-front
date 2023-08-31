@@ -14,12 +14,17 @@ import GuitarListView from "features/admin/view/GuitarListView/GuitarListView";
 import AddGuitarView from "features/admin/view/AddGuitarView/AddGuitarView";
 import GuitarDetailsView from "features/admin/view/GuitarDetailsView";
 import WishListView from "features/shop/views/WishListView/WishListView";
+import SingleGuitarDetailsView from "features/shop/views/SingleGuitarDetailsView";
 
 const Router = () => {
   return (
     <>
       <Routes>
         <Route path={PATHS_CORE.SHOP} element={<ShopView />} />
+        <Route
+          path={PATHS_CORE.GUITAR_DETAILS(":id")}
+          element={<SingleGuitarDetailsView />}
+        />
         <Route
           path={PATHS_CORE.LOGIN}
           element={
