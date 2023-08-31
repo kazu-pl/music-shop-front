@@ -40,6 +40,10 @@ const documents = {
     "\n  mutation Register($registerCredentials: RegisterCredentialsInput!) {\n    register(registerCredentials: $registerCredentials) {\n      message\n    }\n  }\n": types.RegisterDocument,
     "\n  mutation AddItemToWishlist($addItemToWishlistId: ID!) {\n    addItemToWishlist(id: $addItemToWishlistId) {\n      message\n    }\n  }\n": types.AddItemToWishlistDocument,
     "\n  mutation RemoveItemfromWishlist($removeItemfromWishlistId: ID!) {\n    removeItemfromWishlist(id: $removeItemfromWishlistId) {\n      message\n    }\n  }\n": types.RemoveItemfromWishlistDocument,
+    "\n  mutation ResetWholeCheckout {\n    resetWholeCheckout {\n      message\n    }\n  }\n": types.ResetWholeCheckoutDocument,
+    "\n  mutation AddItemToCheckout($addItemToCheckoutId: ID!) {\n    addItemToCheckout(id: $addItemToCheckoutId) {\n      message\n    }\n  }\n": types.AddItemToCheckoutDocument,
+    "\n  query GetGuitarsFromCheckout {\n    getGuitarsFromCheckout {\n      data {\n        id\n        quantity\n      }\n      totalItems\n    }\n  }\n": types.GetGuitarsFromCheckoutDocument,
+    "\n  mutation RemoveItemfromCheckout($removeItemfromCheckoutId: ID!) {\n    removeItemfromCheckout(id: $removeItemfromCheckoutId) {\n      message\n    }\n  }\n": types.RemoveItemfromCheckoutDocument,
     "\n  query GetGuitarsFromWishlist {\n    getGuitarsFromWishlist {\n      data\n      totalItems\n    }\n  }\n": types.GetGuitarsFromWishlistDocument,
     "\n  query GetUserDataForShopLayout {\n    getUserData {\n      name\n      surname\n      email\n      street\n      streetNumber\n      postalCode\n      city\n      phone\n    }\n  }\n": types.GetUserDataForShopLayoutDocument,
 };
@@ -166,6 +170,22 @@ export function gql(source: "\n  mutation AddItemToWishlist($addItemToWishlistId
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation RemoveItemfromWishlist($removeItemfromWishlistId: ID!) {\n    removeItemfromWishlist(id: $removeItemfromWishlistId) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveItemfromWishlist($removeItemfromWishlistId: ID!) {\n    removeItemfromWishlist(id: $removeItemfromWishlistId) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation ResetWholeCheckout {\n    resetWholeCheckout {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation ResetWholeCheckout {\n    resetWholeCheckout {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation AddItemToCheckout($addItemToCheckoutId: ID!) {\n    addItemToCheckout(id: $addItemToCheckoutId) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation AddItemToCheckout($addItemToCheckoutId: ID!) {\n    addItemToCheckout(id: $addItemToCheckoutId) {\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetGuitarsFromCheckout {\n    getGuitarsFromCheckout {\n      data {\n        id\n        quantity\n      }\n      totalItems\n    }\n  }\n"): (typeof documents)["\n  query GetGuitarsFromCheckout {\n    getGuitarsFromCheckout {\n      data {\n        id\n        quantity\n      }\n      totalItems\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation RemoveItemfromCheckout($removeItemfromCheckoutId: ID!) {\n    removeItemfromCheckout(id: $removeItemfromCheckoutId) {\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation RemoveItemfromCheckout($removeItemfromCheckoutId: ID!) {\n    removeItemfromCheckout(id: $removeItemfromCheckoutId) {\n      message\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

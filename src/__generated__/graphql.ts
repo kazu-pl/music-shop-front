@@ -202,6 +202,18 @@ export type GuitarsListWithdataLoder = {
   totalItems: Scalars['Int'];
 };
 
+export type ItemFromCheckout = {
+  __typename?: 'ItemFromCheckout';
+  id: Scalars['ID'];
+  quantity: Scalars['Int'];
+};
+
+export type ItemsFromCheckout = {
+  __typename?: 'ItemsFromCheckout';
+  data: Array<ItemFromCheckout>;
+  totalItems: Scalars['Int'];
+};
+
 export type ItemsFromWishlist = {
   __typename?: 'ItemsFromWishlist';
   data: Array<Scalars['ID']>;
@@ -227,6 +239,8 @@ export type Mutation = {
    * **ONLY FOR ADMIN**
    */
   addGuitarFilter: SuccessfulReqMsg;
+  /** **PROTECTED** */
+  addItemToCheckout: SuccessfulReqMsg;
   /** **PROTECTED** */
   addItemToWishlist: SuccessfulReqMsg;
   /** use this mutation to send email and password and get JWT tokens */
@@ -257,11 +271,15 @@ export type Mutation = {
    */
   removeGuitarImage: SuccessfulReqMsg;
   /** **PROTECTED** */
+  removeItemfromCheckout: SuccessfulReqMsg;
+  /** **PROTECTED** */
   removeItemfromWishlist: SuccessfulReqMsg;
   /** **PROTECTED** */
   removeUser: SuccessfulReqMsg;
   /** use this to get new accessToken if yours expired. Pass refreshToken to obtain accessToken */
   renewAccessToken: AccessTokenResponse;
+  /** **PROTECTED** */
+  resetWholeCheckout: SuccessfulReqMsg;
   /**
    * **PROTECTED**
    * -
@@ -299,6 +317,11 @@ export type MutationAddGuitarFilterArgs = {
 };
 
 
+export type MutationAddItemToCheckoutArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationAddItemToWishlistArgs = {
   id: Scalars['ID'];
 };
@@ -326,6 +349,11 @@ export type MutationRemoveGuitarFilterArgs = {
 
 export type MutationRemoveGuitarImageArgs = {
   guitarId: Scalars['ID'];
+};
+
+
+export type MutationRemoveItemfromCheckoutArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -385,6 +413,7 @@ export type Query = {
    */
   getGuitarFilters: GuitarFiltersList;
   getGuitars: GuitarsList;
+  getGuitarsFromCheckout: ItemsFromCheckout;
   getGuitarsFromWishlist: ItemsFromWishlist;
   getGuitarsPopulated: GuitarsListPopulated;
   getGuitarsPopulatedOptionally: GuitarsListPopulated;
@@ -744,6 +773,30 @@ export type RemoveItemfromWishlistMutationVariables = Exact<{
 
 export type RemoveItemfromWishlistMutation = { __typename?: 'Mutation', removeItemfromWishlist: { __typename?: 'SuccessfulReqMsg', message: string } };
 
+export type ResetWholeCheckoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ResetWholeCheckoutMutation = { __typename?: 'Mutation', resetWholeCheckout: { __typename?: 'SuccessfulReqMsg', message: string } };
+
+export type AddItemToCheckoutMutationVariables = Exact<{
+  addItemToCheckoutId: Scalars['ID'];
+}>;
+
+
+export type AddItemToCheckoutMutation = { __typename?: 'Mutation', addItemToCheckout: { __typename?: 'SuccessfulReqMsg', message: string } };
+
+export type GetGuitarsFromCheckoutQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetGuitarsFromCheckoutQuery = { __typename?: 'Query', getGuitarsFromCheckout: { __typename?: 'ItemsFromCheckout', totalItems: number, data: Array<{ __typename?: 'ItemFromCheckout', id: string, quantity: number }> } };
+
+export type RemoveItemfromCheckoutMutationVariables = Exact<{
+  removeItemfromCheckoutId: Scalars['ID'];
+}>;
+
+
+export type RemoveItemfromCheckoutMutation = { __typename?: 'Mutation', removeItemfromCheckout: { __typename?: 'SuccessfulReqMsg', message: string } };
+
 export type GetGuitarsFromWishlistQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -782,5 +835,9 @@ export const LoginDocument = {"kind":"Document","definitions":[{"kind":"Operatio
 export const RegisterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Register"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"registerCredentials"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RegisterCredentialsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"register"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"registerCredentials"},"value":{"kind":"Variable","name":{"kind":"Name","value":"registerCredentials"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<RegisterMutation, RegisterMutationVariables>;
 export const AddItemToWishlistDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddItemToWishlist"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addItemToWishlistId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addItemToWishlist"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addItemToWishlistId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<AddItemToWishlistMutation, AddItemToWishlistMutationVariables>;
 export const RemoveItemfromWishlistDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemoveItemfromWishlist"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeItemfromWishlistId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeItemfromWishlist"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeItemfromWishlistId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<RemoveItemfromWishlistMutation, RemoveItemfromWishlistMutationVariables>;
+export const ResetWholeCheckoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ResetWholeCheckout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resetWholeCheckout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<ResetWholeCheckoutMutation, ResetWholeCheckoutMutationVariables>;
+export const AddItemToCheckoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddItemToCheckout"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addItemToCheckoutId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addItemToCheckout"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addItemToCheckoutId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<AddItemToCheckoutMutation, AddItemToCheckoutMutationVariables>;
+export const GetGuitarsFromCheckoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGuitarsFromCheckout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getGuitarsFromCheckout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"quantity"}}]}},{"kind":"Field","name":{"kind":"Name","value":"totalItems"}}]}}]}}]} as unknown as DocumentNode<GetGuitarsFromCheckoutQuery, GetGuitarsFromCheckoutQueryVariables>;
+export const RemoveItemfromCheckoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemoveItemfromCheckout"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeItemfromCheckoutId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeItemfromCheckout"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeItemfromCheckoutId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<RemoveItemfromCheckoutMutation, RemoveItemfromCheckoutMutationVariables>;
 export const GetGuitarsFromWishlistDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGuitarsFromWishlist"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getGuitarsFromWishlist"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"totalItems"}}]}}]}}]} as unknown as DocumentNode<GetGuitarsFromWishlistQuery, GetGuitarsFromWishlistQueryVariables>;
 export const GetUserDataForShopLayoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserDataForShopLayout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUserData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"surname"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"streetNumber"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}}]} as unknown as DocumentNode<GetUserDataForShopLayoutQuery, GetUserDataForShopLayoutQueryVariables>;
