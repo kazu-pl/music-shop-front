@@ -120,10 +120,10 @@ export default function EnhancedTable<T>({
   columns,
   data,
   tableName,
-  noDataText = "No data",
+  noDataText = "Brak danych",
   isSelectable,
   iconsToManageSelectedData,
-  selectedItemsText = (items) => `${items} items selected`,
+  selectedItemsText = (items) => `wybranych: ${items}`,
   filters,
   isFiltersBarVisibleInitially = false,
   rowsPerPageOptions = [5, 10, 25],
@@ -132,7 +132,7 @@ export default function EnhancedTable<T>({
   sort,
   onChangePage = () => {},
   onChangeRowsPerPage = () => {},
-  rowsPerPageText = "Rows per page:",
+  rowsPerPageText = "wierszy na stronę:",
   onChangeSort = () => {},
 }: TableProps<T>) {
   const [selectedItemsIndexes, setSelectedItemsIndexes] = useState<number[]>(

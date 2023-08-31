@@ -15,12 +15,15 @@ import AddGuitarView from "features/admin/view/AddGuitarView/AddGuitarView";
 import GuitarDetailsView from "features/admin/view/GuitarDetailsView";
 import WishListView from "features/shop/views/WishListView/WishListView";
 import SingleGuitarDetailsView from "features/shop/views/SingleGuitarDetailsView";
+import CheckoutView from "features/shop/views/CheckoutView";
+import NotFound from "features/core/views/NotFound/NotFound";
 
 const Router = () => {
   return (
     <>
       <Routes>
         <Route path={PATHS_CORE.SHOP} element={<ShopView />} />
+        <Route path={PATHS_CORE.CHECKOUT} element={<CheckoutView />} />
         <Route
           path={PATHS_CORE.GUITAR_DETAILS(":id")}
           element={<SingleGuitarDetailsView />}
@@ -113,6 +116,7 @@ const Router = () => {
             </PrivateRoute>
           }
         />
+        <Route path={"*"} element={<NotFound />} />
       </Routes>
     </>
   );

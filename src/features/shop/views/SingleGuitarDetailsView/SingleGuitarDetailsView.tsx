@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { gql } from "__generated__";
+import { useEffect } from "react";
 import SERVER_URLs from "common/constants/serverUrls";
 import { CircularProgress } from "components/Button/Button.styled";
 import { StyledPapperWrapper } from "components/StyledPapperWrapper";
@@ -13,8 +14,18 @@ import darmowa_dostawa_productcard from "images/darmowa_dostawa_productcard.png"
 import supercena_productcard from "images/supercena_productcard.png";
 import ratyzeroprocent_ca_productcard from "images/ratyzeroprocent_ca_productcard.jpg";
 
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Button from "components/Button";
+import useAddProductToCheckout from "../CheckoutView/hooks/useAddProductToCheckout";
+import useFetchCheckoutList from "../CheckoutView/hooks/useFetchCheckoutList";
+import ColoredIconWrapper from "components/ColoredIconWrapper/ColoredIconWrapper";
+import { checkIfIsOnWishlist } from "features/shop/components/GuitarTile/GuitarTile";
+import useFetchWishList from "../WishListView/useFetchWishList";
+import useRmoveFromWishlist from "features/shop/components/hooks/useRmoveFromWishlist";
+import useAddToWishlist from "features/shop/components/hooks/useAddToWishlist";
 
 const GET_GUITAR = gql(/* GraphQL */ `
   query GetGuitarToEdit($getGuitarId: ID!) {
@@ -88,6 +99,22 @@ const SingleGuitarDetailsView = () => {
     },
     errorPolicy: "all",
   });
+  const { fetchCheckoutlist } = useFetchCheckoutList();
+  const { data: wishlistData, fetchWishlist } = useFetchWishList();
+
+  const { handleAddToCheckout, isAddingToCheckout } =
+    useAddProductToCheckout(fetchCheckoutlist);
+
+  const isOnWishlist = checkIfIsOnWishlist(id!, wishlistData);
+
+  useEffect(() => {
+    fetchWishlist();
+  }, [fetchWishlist]);
+
+  const { handleRemoveFromWishlist, isRemovingFromWishlist } =
+    useRmoveFromWishlist(fetchWishlist);
+  const { handleAddToWishlist, isAddingToWishlist } =
+    useAddToWishlist(fetchWishlist);
 
   return (
     <ShopLayout
@@ -146,11 +173,13 @@ const SingleGuitarDetailsView = () => {
             </Box>
             <Box mt={2}>
               <Typography variant="h6">Opis:</Typography>
-              {data?.getGuitar.description}
+              <Typography textAlign={"left"} variant="body2">
+                {data?.getGuitar.description}
+              </Typography>
             </Box>
             <Box mt={4}>
               <Typography variant="h6">Specyfikacja:</Typography>
-              <ul style={{ marginLeft: "16px" }}>
+              <ul style={{ marginLeft: "10px" }}>
                 <li style={{ textAlign: "left" }}>
                   Producent: {data?.getGuitar.producer.name}
                 </li>
@@ -192,7 +221,33 @@ const SingleGuitarDetailsView = () => {
             </Box>
 
             <Box mt={4}>
-              <Button variant="contained" startIcon={<ShoppingCartIcon />}>
+              <Tooltip
+                title={
+                  isOnWishlist ? "Usuń z listy życzeń" : "Dodaj do listy życzeń"
+                }
+              >
+                <IconButton
+                  onClick={
+                    isOnWishlist
+                      ? () => handleRemoveFromWishlist(id!)
+                      : () => handleAddToWishlist(id!)
+                  }
+                  disabled={
+                    isOnWishlist ? isRemovingFromWishlist : isAddingToWishlist
+                  }
+                >
+                  <ColoredIconWrapper color={isOnWishlist ? "success" : "grey"}>
+                    <FavoriteIcon />
+                  </ColoredIconWrapper>
+                </IconButton>
+              </Tooltip>
+
+              <Button
+                variant="contained"
+                startIcon={<ShoppingCartIcon />}
+                onClick={() => handleAddToCheckout(id!)}
+                disabled={isAddingToCheckout}
+              >
                 Dodaj do koszyka
               </Button>
             </Box>

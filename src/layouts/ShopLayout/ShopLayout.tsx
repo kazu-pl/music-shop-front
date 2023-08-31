@@ -24,6 +24,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { gql } from "__generated__";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import useFetchWishList from "features/shop/views/WishListView/useFetchWishList";
+import useFetchCheckoutList from "features/shop/views/CheckoutView/hooks/useFetchCheckoutList";
 
 export const GET_USER_DATA_FOR_SHOPLAYOUT = gql(/* GraphQL */ `
   query GetUserDataForShopLayout {
@@ -51,26 +52,21 @@ const ShopLayout = ({ children, title, extra }: ShopLayoutProps) => {
     errorPolicy: "all",
   });
 
-  useEffect(() => {
-    console.log({ data });
-  }, [data]);
-
   const { data: whishlistData, fetchWishlist } = useFetchWishList();
+  const { checkoutTotalItems, fetchCheckoutlist } = useFetchCheckoutList();
 
   useEffect(() => {
     fetchWishlist();
   }, [fetchWishlist]);
 
+  useEffect(() => {
+    fetchCheckoutlist();
+  }, [fetchCheckoutlist]);
+
   useLayoutEffect(() => {
     const tokens = getTokens();
-    console.log({
-      tokens,
-      isTokenExpired: tokens
-        ? !isTokenExpired(tokens.accessToken)
-        : "nie ma tokenu wgl",
-    });
+
     if (tokens && !isTokenExpired(tokens.accessToken)) {
-      console.log("##################### JESTEM W ŚrODU I POBIERAM #######");
       fetch();
     }
   }, [fetch, title]);
@@ -89,7 +85,7 @@ const ShopLayout = ({ children, title, extra }: ShopLayoutProps) => {
         }
         additionalControls={
           <Box display="flex" alignItems={"center"} justifyContent={"center"}>
-            <Badge badgeContent={0} color="error">
+            <Badge badgeContent={checkoutTotalItems} color="error">
               {/* @ts-ignore */}
               <IconButton LinkComponent={Link} to={PATHS_CORE.CHECKOUT}>
                 <ColoredIconWrapper color="white">

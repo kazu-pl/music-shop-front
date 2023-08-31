@@ -24,6 +24,7 @@ import AbsoluteLoadingSpinner from "components/AbsoluteLoadingSpinner";
 import Typography from "@mui/material/Typography";
 import { checkIfIsOnWishlist } from "features/shop/components/GuitarTile/GuitarTile";
 import useFetchWishList from "../WishListView/useFetchWishList";
+import useFetchCheckoutList from "../CheckoutView/hooks/useFetchCheckoutList";
 
 const GET_GUITARS_QUERY = gql(/* GraphQL */ `
   query GetGuitarsWithDataLoader(
@@ -162,11 +163,16 @@ const ShopView = () => {
     }));
   };
 
-  const { data, fetchWishlist } = useFetchWishList();
+  const { data: wishlistData, fetchWishlist } = useFetchWishList();
+  const { data: checkoutData, fetchCheckoutlist } = useFetchCheckoutList();
 
   useLayoutEffect(() => {
     fetchWishlist();
   }, [fetchWishlist]);
+
+  useLayoutEffect(() => {
+    fetchCheckoutlist();
+  }, [fetchCheckoutlist]);
 
   return (
     <ShopLayout title="Sklep muzyczny MusicShop">
@@ -194,8 +200,13 @@ const ShopView = () => {
                       index + 1 ===
                       guitarsData.getGuitarsWithDataLoader.data.length
                     }
-                    isOnWishlist={checkIfIsOnWishlist(guitar._id, data)}
+                    isOnWishlist={checkIfIsOnWishlist(guitar._id, wishlistData)}
                     fetchWishlist={fetchWishlist}
+                    isOnCheckoutList={checkIfIsOnWishlist(
+                      guitar._id,
+                      checkoutData
+                    )}
+                    fetchCheckoutlist={fetchCheckoutlist}
                   />
                 )
               )

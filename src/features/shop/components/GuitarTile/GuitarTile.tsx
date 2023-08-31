@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { GetGuitarsWithDataLoaderQuery, Guitar } from "__generated__/graphql";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,30 +6,15 @@ import renderMaxLengthText from "utils/renderMaxLengthText";
 import Button from "components/Button/Button";
 import { PATHS_CORE } from "common/constants/paths";
 import Grid from "@mui/material/Grid";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import ColoredIconWrapper from "components/ColoredIconWrapper/ColoredIconWrapper";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useMutation } from "@apollo/client";
-import { gql } from "__generated__";
-import { useSnackbar } from "notistack";
 import Tooltip from "@mui/material/Tooltip";
-
-const ADD_TO_WISHLIST = gql(/* GraphQL */ `
-  mutation AddItemToWishlist($addItemToWishlistId: ID!) {
-    addItemToWishlist(id: $addItemToWishlistId) {
-      message
-    }
-  }
-`);
-const REMOVE_FROM_WISHLIST = gql(/* GraphQL */ `
-  mutation RemoveItemfromWishlist($removeItemfromWishlistId: ID!) {
-    removeItemfromWishlist(id: $removeItemfromWishlistId) {
-      message
-    }
-  }
-`);
+import useAddProductToCheckout from "features/shop/views/CheckoutView/hooks/useAddProductToCheckout";
+import useRmoveFromWishlist from "../hooks/useRmoveFromWishlist";
+import useAddToWishlist from "../hooks/useAddToWishlist";
 
 export const checkIfIsOnWishlist = (
   itemId: string,
@@ -45,82 +29,26 @@ export interface GuitarTileProps {
   data: Guitar;
   noMarginBottom?: boolean;
   isOnWishlist?: boolean;
-  fetchWishlist?: () => void;
+  isOnCheckoutList?: boolean;
+  fetchWishlist: () => void;
+  fetchCheckoutlist: () => void;
 }
 
 const GuitarTile = ({
   data,
   noMarginBottom,
   isOnWishlist,
+  isOnCheckoutList,
   fetchWishlist,
+  fetchCheckoutlist = () => {},
 }: GuitarTileProps) => {
-  const { enqueueSnackbar } = useSnackbar();
+  const { handleAddToCheckout, isAddingToCheckout } =
+    useAddProductToCheckout(fetchCheckoutlist);
 
-  const [addGuitarToWishlist, { loading: isAddingToWishlist }] = useMutation(
-    ADD_TO_WISHLIST,
-    {
-      variables: {
-        addItemToWishlistId: data._id,
-      },
-      onCompleted(data) {
-        const { message } = data.addItemToWishlist;
-        enqueueSnackbar(message, { variant: "success" });
-      },
-      onError(error) {
-        enqueueSnackbar(error.message, { variant: "error" });
-      },
-    }
-  );
-
-  const [removeGuitarFromWishlist, { loading: isRemovingFromWishlist }] =
-    useMutation(REMOVE_FROM_WISHLIST, {
-      variables: {
-        removeItemfromWishlistId: data._id,
-      },
-      onCompleted(data) {
-        const { message } = data.removeItemfromWishlist;
-        enqueueSnackbar(message, { variant: "success" });
-      },
-      onError(error) {
-        enqueueSnackbar(error.message, { variant: "error" });
-      },
-    });
-
-  const handleAddToWishlist = useCallback(() => {
-    addGuitarToWishlist({
-      variables: {
-        addItemToWishlistId: data._id,
-      },
-      errorPolicy: "none",
-      onCompleted(data) {
-        const { message } = data.addItemToWishlist;
-        enqueueSnackbar(message, { variant: "success" });
-
-        fetchWishlist && fetchWishlist();
-      },
-      onError(error, clientOptions) {
-        enqueueSnackbar(error.message, { variant: "error" });
-      },
-    });
-  }, [addGuitarToWishlist, data._id, fetchWishlist, enqueueSnackbar]);
-
-  const handleRemoveFromWishlist = useCallback(() => {
-    removeGuitarFromWishlist({
-      variables: {
-        removeItemfromWishlistId: data._id,
-      },
-      errorPolicy: "none",
-      onCompleted(data) {
-        const { message } = data.removeItemfromWishlist;
-        enqueueSnackbar(message, { variant: "success" });
-
-        fetchWishlist && fetchWishlist();
-      },
-      onError(error, clientOptions) {
-        enqueueSnackbar(error.message, { variant: "error" });
-      },
-    });
-  }, [data._id, fetchWishlist, enqueueSnackbar, removeGuitarFromWishlist]);
+  const { handleRemoveFromWishlist, isRemovingFromWishlist } =
+    useRmoveFromWishlist(fetchWishlist);
+  const { handleAddToWishlist, isAddingToWishlist } =
+    useAddToWishlist(fetchWishlist);
 
   return (
     <Grid
@@ -159,8 +87,14 @@ const GuitarTile = ({
       </Grid>
       <Grid display={"flex"} flexDirection={"column"} item xs={2}>
         <Box mb={2}>
-          <Typography variant="h6">{`Cena:`}</Typography>
-          <Typography variant="h6">{`${data.price} zł`}</Typography>
+          <Typography variant="h6">
+            {`Cena:`}{" "}
+            <Typography
+              variant="h6"
+              component={"span"}
+              color={"brown"}
+            >{`${data.price} zł`}</Typography>
+          </Typography>
         </Box>
         <Box mb={2}>
           <Typography>{`Dostępność: `}</Typography>
@@ -168,12 +102,22 @@ const GuitarTile = ({
         </Box>
         <Box mb={2} display={"flex"}>
           <Button to={PATHS_CORE.GUITAR_DETAILS(data._id)}>więcej</Button>
-          <IconButton>
-            <ColoredIconWrapper color="primary">
-              <ShoppingCartIcon />
-            </ColoredIconWrapper>
-          </IconButton>
-
+          <Tooltip
+            title={
+              isOnCheckoutList
+                ? "Ten produkt już znajduje się w koszyku. Dodaj kolejną sztukę"
+                : "Dodaj do koszyka"
+            }
+          >
+            <IconButton
+              onClick={() => handleAddToCheckout(data._id)}
+              disabled={isAddingToCheckout}
+            >
+              <ColoredIconWrapper color={isOnCheckoutList ? "primary" : "grey"}>
+                <ShoppingCartIcon />
+              </ColoredIconWrapper>
+            </IconButton>
+          </Tooltip>
           <Tooltip
             title={
               isOnWishlist ? "Usuń z listy życzeń" : "Dodaj do listy życzeń"
@@ -181,7 +125,9 @@ const GuitarTile = ({
           >
             <IconButton
               onClick={
-                isOnWishlist ? handleRemoveFromWishlist : handleAddToWishlist
+                isOnWishlist
+                  ? () => handleRemoveFromWishlist(data._id!)
+                  : () => handleAddToWishlist(data._id!)
               }
               disabled={
                 isOnWishlist ? isRemovingFromWishlist : isAddingToWishlist

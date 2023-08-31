@@ -6,6 +6,7 @@ import GuitarTile from "../../components/GuitarTile";
 import Typography from "@mui/material/Typography";
 import useFetchWishList from "./useFetchWishList";
 import { checkIfIsOnWishlist } from "features/shop/components/GuitarTile/GuitarTile";
+import useFetchCheckoutList from "../CheckoutView/hooks/useFetchCheckoutList";
 
 const WishListView = () => {
   const { data, error, loading, fetchWishlist } = useFetchWishList();
@@ -13,6 +14,12 @@ const WishListView = () => {
   useEffect(() => {
     fetchWishlist();
   }, [fetchWishlist]);
+
+  const { data: checkoutData, fetchCheckoutlist } = useFetchCheckoutList();
+
+  useEffect(() => {
+    fetchCheckoutlist();
+  }, [fetchCheckoutlist]);
 
   return (
     <ShopLayout title="Lista życzeń">
@@ -35,6 +42,8 @@ const WishListView = () => {
                 }
                 isOnWishlist={checkIfIsOnWishlist(guitar._id, data)}
                 fetchWishlist={fetchWishlist}
+                isOnCheckoutList={checkIfIsOnWishlist(guitar._id, checkoutData)}
+                fetchCheckoutlist={fetchCheckoutlist}
               />
             )
           )
