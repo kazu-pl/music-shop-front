@@ -200,7 +200,7 @@ const ShopLayout = ({ children, title, extra }: ShopLayoutProps) => {
 
           {extra}
         </Box>
-        <>{children}</>
+        <Box pb={4}>{children}</Box>
       </Container>
     </>
   );

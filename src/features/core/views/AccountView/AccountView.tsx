@@ -135,7 +135,7 @@ const AccountView = () => {
         </Typography>
       )}
 
-      <Box maxWidth={800} width={"100%"} borderRadius={1} margin={"0 auto"}>
+      <Box maxWidth={600} width={"100%"} borderRadius={1} margin={"0 auto"}>
         <StyledPapperWrapper>
           <Box mb={2}>
             <Typography variant="h6">Podstawowe dane</Typography>
@@ -162,7 +162,7 @@ const AccountView = () => {
         </StyledPapperWrapper>
       </Box>
       <Box
-        maxWidth={800}
+        maxWidth={600}
         width={"100%"}
         borderRadius={1}
         mt={2}
@@ -181,7 +181,7 @@ const AccountView = () => {
       </Box>
 
       <Box
-        maxWidth={800}
+        maxWidth={600}
         width={"100%"}
         borderRadius={1}
         mt={2}
