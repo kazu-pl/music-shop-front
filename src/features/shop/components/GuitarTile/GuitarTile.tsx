@@ -15,6 +15,7 @@ import Tooltip from "@mui/material/Tooltip";
 import useAddProductToCheckout from "features/shop/views/CheckoutView/hooks/useAddProductToCheckout";
 import useRmoveFromWishlist from "../hooks/useRmoveFromWishlist";
 import useAddToWishlist from "../hooks/useAddToWishlist";
+import getAvailabilityColor from "features/shop/utils/getAvailabilityColor";
 
 export const checkIfIsOnWishlist = (
   itemId: string,
@@ -81,7 +82,7 @@ const GuitarTile = ({
         <Box mb={2}>
           <Typography>{`${renderMaxLengthText(
             data.description,
-            100
+            250
           )}`}</Typography>
         </Box>
       </Grid>
@@ -98,7 +99,9 @@ const GuitarTile = ({
         </Box>
         <Box mb={2}>
           <Typography>{`Dostępność: `}</Typography>
-          <Typography>{`${data.availability.name}`}</Typography>
+          <Typography
+            color={getAvailabilityColor(data.availability.name)}
+          >{`${data.availability.name}`}</Typography>
         </Box>
         <Box mb={2} display={"flex"}>
           <Button to={PATHS_CORE.GUITAR_DETAILS(data._id)}>więcej</Button>

@@ -81,7 +81,7 @@ const AccountView = () => {
   );
 
   const handleUpdate: AccountFormProps["onSubmit"] = (values) => {
-    updateAccount({ variables: { data: values } });
+    updateAccount({ variables: { data: { ...values, phone: +values.phone } } });
   };
 
   const [updatePassword, { loading: updatePasswordLoading }] = useMutation(
