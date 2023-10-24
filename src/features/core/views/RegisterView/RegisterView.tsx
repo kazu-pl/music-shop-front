@@ -113,7 +113,7 @@ const RegisterView = () => {
     <>
       <HelmetDecorator title={"strona rejestracji"} />
 
-      <CoreViewsLayout title={"Załóż konto"} maxWidth="1000px">
+      <CoreViewsLayout title={"Załóż konto"} maxWidth="600px">
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
