@@ -46,6 +46,7 @@ const LoginView = () => {
       saveTokens(tokens);
       navigate(PATHS_CORE.SHOP);
     },
+    errorPolicy: "none",
     onError(error) {
       enqueueSnackbar(error.message, { variant: "error" });
     },

@@ -115,7 +115,7 @@ const ShopView = () => {
     data: guitarsData,
     loading: guitarsLoading,
     error: guitarError,
-    // refetch,
+    refetch,
   } = useQuery(GET_GUITARS_QUERY, {
     variables: {
       limit: params.limit,
@@ -130,7 +130,13 @@ const ShopView = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
     page: number
   ) => {
-    setParams((prev) => ({ ...prev, offset: (page - 1) * prev.limit }));
+    setParams((prev) => ({ ...prev, offset: page * prev.limit }));
+    refetch({
+      limit: params.limit,
+      offset: params.offset,
+      sort,
+      filters,
+    });
   };
 
   const onChangeRowsPerPage = (
