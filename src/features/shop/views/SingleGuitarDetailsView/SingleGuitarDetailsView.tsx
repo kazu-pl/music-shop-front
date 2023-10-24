@@ -26,6 +26,10 @@ import { checkIfIsOnWishlist } from "features/shop/components/GuitarTile/GuitarT
 import useFetchWishList from "../WishListView/useFetchWishList";
 import useRmoveFromWishlist from "features/shop/components/hooks/useRmoveFromWishlist";
 import useAddToWishlist from "features/shop/components/hooks/useAddToWishlist";
+import { isUserAdmin } from "common/auth/tokens";
+import { PATHS_ADMIN } from "common/constants/paths";
+import EditIcon from "@mui/icons-material/Edit";
+import getAvailabilityColor from "features/shop/utils/getAvailabilityColor";
 
 const GET_GUITAR = gql(/* GraphQL */ `
   query GetGuitarToEdit($getGuitarId: ID!) {
@@ -215,12 +219,29 @@ const SingleGuitarDetailsView = () => {
                 </li>
 
                 <li style={{ textAlign: "left" }}>
-                  Dostępność: {data?.getGuitar.availability.name}
+                  Dostępność:{" "}
+                  {
+                    <span
+                      style={{
+                        color: getAvailabilityColor(
+                          data?.getGuitar.availability.name
+                        ),
+                      }}
+                    >
+                      {data?.getGuitar.availability.name}
+                    </span>
+                  }
                 </li>
               </ul>
             </Box>
 
-            <Box mt={4}>
+            <Box
+              mt={4}
+              position={"relative"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
               <Tooltip
                 title={
                   isOnWishlist ? "Usuń z listy życzeń" : "Dodaj do listy życzeń"
@@ -250,6 +271,17 @@ const SingleGuitarDetailsView = () => {
               >
                 Dodaj do koszyka
               </Button>
+              {isUserAdmin() && (
+                <Box position={"absolute"} right={2} top={"0%"}>
+                  <Button
+                    to={PATHS_ADMIN.SINGLE_GUITAR(id || "id")}
+                    variant="contained"
+                    startIcon={<EditIcon />}
+                  >
+                    Edytuj
+                  </Button>
+                </Box>
+              )}
             </Box>
           </Box>
         </Box>
