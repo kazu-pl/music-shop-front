@@ -16,6 +16,7 @@ import useAddProductToCheckout from "features/shop/views/CheckoutView/hooks/useA
 import useRmoveFromWishlist from "../hooks/useRmoveFromWishlist";
 import useAddToWishlist from "../hooks/useAddToWishlist";
 import getAvailabilityColor from "features/shop/utils/getAvailabilityColor";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export const checkIfIsOnWishlist = (
   itemId: string,
@@ -60,7 +61,7 @@ const GuitarTile = ({
       p={1}
     >
       <Grid height={"100%"} item xs={2}>
-        <img
+        <LazyLoadImage
           src={
             data.imageId
               ? SERVER_URLs.FILES(data.imageId)

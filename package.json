@@ -1,6 +1,6 @@
 {
   "name": "front",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.7.14",
@@ -24,6 +24,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
+    "react-lazy-load-image-component": "^1.6.0",
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
     "styled-components": "^6.0.0-rc.3",
@@ -63,6 +64,7 @@
   "devDependencies": {
     "@types/apollo-upload-client": "^17.0.2",
     "@types/react-helmet": "^6.1.6",
+    "@types/react-lazy-load-image-component": "^1.6.3",
     "@types/styled-components": "^5.1.26"
   }
 }
