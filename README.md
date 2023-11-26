@@ -1,3 +1,33 @@
+# How to lazy load images:
+
+1 - `yarn add react-lazy-load-image-component`
+2 - `yarn add @types/react-lazy-load-image-component -D`
+
+3:
+
+```tsx
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
+// features/shop/components/GuitarTile/GuitarTile.tsx
+
+const myPage = () => {
+  return (
+    <LazyLoadImage
+      src="https://picsum.photos/200/300"
+      alt="some_image"
+      // height={200}
+      // width="100%"
+      style={{
+        height: "100%",
+        width: "100%",
+        display: "block",
+        objectFit: "contain",
+      }}
+    />
+  );
+};
+```
+
 # using TextField as select throwns an error about uncontrolled input:
 
 If you use `TextField` component with `select` prop set to `true` and you receive an error like this:
